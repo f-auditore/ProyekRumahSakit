@@ -50,7 +50,7 @@ Ini pas kerjaan koding atau taskmu udh selesai ya, atau bisa pas lagi edit sesua
 3. **`git commit -m "pesan penjelasan"`**
    * Simpen permanen ke Git. Tulis pesan yang jelas yaa... (contohnya: "fitur login kelar").
 4. **`git push origin <nama-branch>`**
-   * Upload branch lu beserta isinya ke cloud GitHub
+   * Upload branch kamu beserta isinya ke cloud GitHub
 
 ---
 
