@@ -1,6 +1,13 @@
 # Make GitHub Yaaa... (Disuruh Juan)
 *Kalau ada tambahan, boleh di tambah*
 
+Oh iya, make GitHUbnya pas ngoding di Code Editor lewat terminal
+lebih mudah lagi kalau udh download Git, ini link download Git nya :
+[Halaman Download Git](https://git-scm.com/install/windows)
+
+Git ini kayak semacam pelacak atau kontrol project biar mudah saat kolaborasi
+
+
 ---
 
 ## 1. Setup
