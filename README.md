@@ -20,7 +20,7 @@ Dipake pas mau collab
   * **Maksudnya:** "Ayo download proyeknya ke laptop ku"
   * **Fungsi:** Menyalin proyek dari GitHub ke laptop kamu, bisa lewat vs code kok
 * **`git init`**
-  * **Maksudnya:** "Woi Git, pantau folder ini ya!"
+  * **Maksudnya:** "Woi Git, pantau folder ini ya"
   * **Fungsi:** Bikin folder lokal kamu jadi kayak code online (bisa mantau pokoknya)
 
 ---
@@ -29,7 +29,7 @@ Dipake pas mau collab
 jangan ngoding lngsung di branch `main` atau `master` ya ges. SOal nya itu induk
 
 * **`git branch <nama-branch-baru>`**
-  * **Maksudnya:** "Gw bikin jalur ngoding baru ya, biar ga tabrakan sama kalian"
+  * **Maksudnya:** "Aku bikin jalur ngoding baru ya, biar ga tabrakan sama kalian"
   * **Fungsi:** Buat cabang baru biar kerjaan mu terpisah dari kode utama
 * **`git checkout <nama-branch>`**
   * **Maksudnya:** "Pindah dong, aku mau ngoding di branch ini"
@@ -48,9 +48,9 @@ Ini pas kerjaan koding atau taskmu udh selesai ya, atau bisa pas lagi edit sesua
 2. **`git add .`**
    * Masukin semua perubahan lu ke 'keranjang' atau 'Checkout' buat disimpen
 3. **`git commit -m "pesan penjelasan"`**
-   * *Simpen permanen ke Git. Tulis pesan yang jelas yaa... (contohnya: "fitur login kelar").*
+   * Simpen permanen ke Git. Tulis pesan yang jelas yaa... (contohnya: "fitur login kelar").
 4. **`git push origin <nama-branch>`**
-   * *Upload branch lu beserta isinya ke cloud GitHub*
+   * Upload branch lu beserta isinya ke cloud GitHub
 
 ---
 
