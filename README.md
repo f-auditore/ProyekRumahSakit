@@ -1,5 +1,12 @@
 FOLDER UTIL, SERVICE, EXCEPTION BELUM KELIATAN SOALNYA GADA ISINYA (GITHUB OTOMATIS HANYA HILANGIN FOLDER KOSONG)
 
+UNTUK PENAMAAN INSTRUKSI (KAYAK BUAT NAMA BRANCH) YANG DI PENJELASAN JANGAN PAKAI TUTUP BUKA KURUNG SIKU (<>), ITU CUMA KETERANGAN AJA, CONTOH: 
+
+* **`git branch model-dokter`**
+  Ini boleh
+* **`git branch <model-dokter>`**
+*  Ini ga perlu
+
 # Make GitHub Yaaa... (Disuruh Juan)
 *Kalau ada tambahan, boleh di tambah*
 
