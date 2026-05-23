@@ -5,7 +5,7 @@ UNTUK PENAMAAN INSTRUKSI (KAYAK BUAT NAMA BRANCH) YANG DI PENJELASAN JANGAN PAKA
 * **`git branch model-dokter`**
   Ini boleh
 * **`git branch <model-dokter>`**
-*  Ini ga perlu
+  Ini ga perlu
 
 # Make GitHub Yaaa... (Disuruh Juan)
 *Kalau ada tambahan, boleh di tambah*
