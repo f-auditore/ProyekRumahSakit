@@ -1,3 +1,5 @@
+FOLDER UTIL, SERVICE, EXCEPTION BELUM KELIATAN SOALNYA GADA ISINYA (GITHUB OTOMATIS HANYA HILANGIN FOLDER KOSONG)
+
 # Make GitHub Yaaa... (Disuruh Juan)
 *Kalau ada tambahan, boleh di tambah*
 
