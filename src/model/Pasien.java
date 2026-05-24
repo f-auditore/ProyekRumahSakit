@@ -1,22 +1,22 @@
 package model;
 
 public class Pasien extends Individu {
-    protected String golDarah;
-    protected String riwayatPenyakit;
-    protected String statusRawat;
+    protected String penyakit;
     
-    public Pasien(String id, String nama, int usia, String nomorTelepon, String golDarah, String riwayatPenyakit, String statusRawat){
-        super(id, nama, usia, nomorTelepon);
-        this.golDarah = golDarah;
-        this.riwayatPenyakit = riwayatPenyakit;
-        this.statusRawat = statusRawat;
+    public Pasien(String nik, String namaLengkap, int usia, String tempatLahir, String tanggalLahir, char jenisKelamin, String penyakit){
+        super(nik, namaLengkap, usia, tempatLahir, tanggalLahir, jenisKelamin);
+        this.penyakit = penyakit;
     }
 
-    public String getNama(){
-        return nama;
-    }
+    @Override
+    public void getPeran(){
+        System.out.println("Pasien");
 
-    
+    }
+    @Override
+    public void tampilkanInfo(){
+        System.out.println("NIK\t\t\t: " + nik + "\nNama\t\t\t: " + namaLengkap + "\nUsia\t\t\t: " + usia + "\nTempat Lahir\t: " + tempatLahir + "\nTanggal Lahir\t" + tanggalLahir + "\nJenis Kelamin\t\t: " + jenisKelamin + "\nPenyakit\t\t: " + penyakit); 
+    }
 
 
 }

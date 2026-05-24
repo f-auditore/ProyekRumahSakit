@@ -30,7 +30,7 @@ public abstract class Ruangan {
         System.out.println("ID Ruangan: " + idRuangan);
         System.out.println("Status: " + status);
         if (spesialis != null) {
-            System.out.println("Dokter Spesialis: " + spesialis.nama);
+            System.out.println("Dokter Spesialis: " + spesialis.namaLengkap);
         } else {
             System.out.println("Dokter Spesialis: Tidak ada");
         }
