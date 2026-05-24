@@ -1,14 +1,10 @@
 package model;
 
-public class Ugd extends Ruangan {
-    
-    public enum StatusPasien {
-        KOSONG, ADA, KRITIS
-    }
+import enums.StatusDokter;
+import enums.StatusPasien;
+import enums.StatusRuangan;
 
-    public enum StatusDokter {
-        STANDBY, BERTUGAS, OFF
-    }
+public class Ugd extends Ruangan {
 
     private StatusPasien statusPasien;
     private StatusDokter statusDokter;
