@@ -8,13 +8,13 @@ import model.RekamMedis;
 import model.Ugd;
 
 public class Main {
-
+    static ArrayList<Pasien> dataPasien = new ArrayList<>();
     static ArrayList<Dokter> dataDokter = new ArrayList<>();
     static ArrayList<Ugd> dataUGD = new ArrayList<>();
     static ArrayList<RekamMedis> dataRekamMedis = new ArrayList<>();
 
     public static void main(String[] args) throws Exception {
-        Pasien.dataPasien.add(new Pasien("3171022804950003", "Rian Santoso", 31, "Jakarta", "28-04-1995",'L', "081298345712", "Hipertensi"));
+        dataPasien.add(new Pasien("3171022804950003", "Rian Santoso", 31, "Jakarta", "28-04-1995",'L', "081298345712", "Hipertensi"));
         dataDokter.add(new Dokter("3273052110940005", "dr. Indah Permatasari", 31, "Bandung", "21-10-1994", 'P', "085711928344", "DK10293847561029"));
         dataDokter.add(new DokterSpesialis("3171031407880002", "dr. Aris Munandar, Sp.PD", 38, "Yogyakarta", "14-07-1988", 'L', "082188456723", "DS30495867120394", "Spesialis Penyakit Dalam", 12, 450));
         dataUGD.add(new Ugd(
@@ -45,9 +45,9 @@ public class Main {
     //1
     public static void daftarPasien() {
         System.out.println("\n============= Data Pasien =============");
-        for (int i = 0; i < Pasien.dataPasien.size(); i++) {
+        for (int i = 0; i < dataPasien.size(); i++) {
             System.out.println("\t### Pasien " + (i+1) + " ###");
-            Pasien.dataPasien.get(i).tampilkanInfo();
+            dataPasien.get(i).tampilkanInfo();
         }
         System.out.println("Data pasien baru berhasil disimpan...");
         System.out.println("-----------------------------");
@@ -62,9 +62,9 @@ public class Main {
 
         //Looping per digit nik
         boolean ditemukan = false;
-        for (int i = 0; i < Pasien.dataPasien.size(); i++) {
-            if (Pasien.dataPasien.get(i).getNik().startsWith(pilihNik)) { //Cari NIK yg awalanny angka inputan e.g. input "32" -> cari NIK yang dimulai dengan "32"
-                Pasien.dataPasien.get(i).tampilkanInfo(); 
+        for (int i = 0; i < dataPasien.size(); i++) {
+            if (dataPasien.get(i).getNik().startsWith(pilihNik)) { //Cari NIK yg awalanny angka inputan e.g. input "32" -> cari NIK yang dimulai dengan "32"
+                dataPasien.get(i).tampilkanInfo(); 
                 ditemukan = true;
                 System.out.println("");
             }

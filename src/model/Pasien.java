@@ -3,19 +3,18 @@ package model;
 import java.util.ArrayList;
 
 public class Pasien extends Individu {
-    public static ArrayList<Pasien> dataPasien = new ArrayList<>();
-
+    
     protected String penyakit;
     
     public Pasien(String nik, String namaLengkap, int usia, String tempatLahir, String tanggalLahir, char jenisKelamin, String noTelp, String penyakit){
         super(nik, namaLengkap, usia, tempatLahir, tanggalLahir, jenisKelamin, noTelp);
         this.penyakit = penyakit;
     }
-
-    public static void tambahPasien(String nik, String namaLengkap, int usia, String tempatLahir, String tanggalLahir, char jenisKelamin, String noTelp, String penyakit) {
+                                    //ArrayList dataPasien dipanggil dari Main
+    public static void tambahPasien(ArrayList<Pasien> dataPasien, String nik, String namaLengkap, int usia, String tempatLahir, String tanggalLahir, char jenisKelamin, String noTelp, String penyakit) {
         dataPasien.add(new Pasien(nik, namaLengkap, usia, tempatLahir, tanggalLahir, jenisKelamin, noTelp, penyakit));
     }
-    public static void hapusDatapasien(String nik) {
+    public static void hapusDatapasien(ArrayList<Pasien> dataPasien, String nik) {
         for (int i = 0; i < dataPasien.size(); i++) {
             if (dataPasien.get(i).getNik().equals(nik)) {
                 dataPasien.remove(i);
