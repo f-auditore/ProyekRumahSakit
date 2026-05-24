@@ -16,9 +16,9 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        dataPasien.add(new Pasien("3171022804950003", "Rian Santoso", 31, "Jakarta", "28-04-1995",'L',"Hipertensi"));
-        dataDokter.add(new Dokter("3273052110940005", "dr. Indah Permatasari", 31, "Bandung", "21-10-1994", 'P', "DK10293847561029",  "S1 Pendidikan Dokter, Universitas Padjadjaran"));
-        dataDokter.add(new DokterSpesialis("3171031407880002", "dr. Aris Munandar, Sp.PD", 38, "Yogyakarta", "14-07-1988", 'L', "S1 Kedokteran UGM","DS30495867120394", "Spesialis Penyakit Dalam UI", 12, 450));
+        dataPasien.add(new Pasien("3171022804950003", "Rian Santoso", 31, "Jakarta", "28-04-1995",'L', "081298345712", "Hipertensi"));
+        dataDokter.add(new Dokter("3273052110940005", "dr. Indah Permatasari", 31, "Bandung", "21-10-1994", 'P', "085711928344", "DK10293847561029",  "S1 Pendidikan Dokter, Universitas Padjadjaran"));
+        dataDokter.add(new DokterSpesialis("3171031407880002", "dr. Aris Munandar, Sp.PD", 38, "Yogyakarta", "14-07-1988", 'L', "082188456723", "S1 Kedokteran UGM","DS30495867120394", "Spesialis Penyakit Dalam UI", 12, 450));
         dataUGD.add(new Ugd("UGD001", "Tersedia", null, "08:00-16:00", "dnjajndajnd", "awjndijad"));
         dataRekamMedis.add(new RekamMedis("RM001", "Rabies", "2024-06-01"));
 
