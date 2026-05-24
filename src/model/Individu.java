@@ -1,19 +1,5 @@
 package model;
 
-// public abstract class Individu {
-//     protected String id;
-//     protected String nama;
-//     protected int usia;
-//     protected String noTelp;
-
-//     public Individu(String id, String nama, int usia, String noTelp){
-//         this.id = id;
-//         this.nama = nama;
-//         this.usia = usia;
-//         this.noTelp = noTelp;
-//     }
-// }
-
 public abstract class Individu {
     protected String nik;
     protected String namaLengkap;
@@ -49,7 +35,7 @@ public abstract class Individu {
     }
 
     public void setNik(String nik){
-        if (nik.length() == 16 && nik.matches("\\d+")) { //
+        if (nik.length() == 16 && nik.matches("\\d+")) { 
             this.nik = nik;
         }
     }
