@@ -4,8 +4,8 @@ public class Dokter extends Individu {
     protected String noLisensi;
     protected String riwayatPendidikan;
 
-    public Dokter(String nik, String namaLengkap, int usia, String tempatLahir, String tanggalLahir, char jenisKelamin, String noLisensi, String riwayatPendidikan){
-        super(nik, namaLengkap, usia, tempatLahir, tanggalLahir, jenisKelamin);
+    public Dokter(String nik, String namaLengkap, int usia, String tempatLahir, String tanggalLahir, char jenisKelamin, String noTelp, String noLisensi, String riwayatPendidikan){
+        super(nik, namaLengkap, usia, tempatLahir, tanggalLahir, jenisKelamin, noTelp);
         this.noLisensi = noLisensi;
         this.riwayatPendidikan = riwayatPendidikan;
     }

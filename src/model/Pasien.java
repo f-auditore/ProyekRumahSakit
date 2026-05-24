@@ -3,8 +3,8 @@ package model;
 public class Pasien extends Individu {
     protected String penyakit;
     
-    public Pasien(String nik, String namaLengkap, int usia, String tempatLahir, String tanggalLahir, char jenisKelamin, String penyakit){
-        super(nik, namaLengkap, usia, tempatLahir, tanggalLahir, jenisKelamin);
+    public Pasien(String nik, String namaLengkap, int usia, String tempatLahir, String tanggalLahir, char jenisKelamin, String noTelp, String penyakit){
+        super(nik, namaLengkap, usia, tempatLahir, tanggalLahir, jenisKelamin, noTelp);
         this.penyakit = penyakit;
     }
 

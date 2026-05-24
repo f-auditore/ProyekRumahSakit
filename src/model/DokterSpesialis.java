@@ -6,8 +6,8 @@ public class DokterSpesialis extends Dokter{
     protected int jmlhPasien;
     //ruangan, status
     
-    public DokterSpesialis(String nik, String namaLengkap, int usia, String tempatLahir, String tanggalLahir, char jenisKelamin, String noLisensi, String riwayatPendidikan, String spesialis, int pengalamanTahun, int jmlhPasien){
-        super(nik, namaLengkap, usia, tempatLahir, tanggalLahir, jenisKelamin, noLisensi, riwayatPendidikan);
+    public DokterSpesialis(String nik, String namaLengkap, int usia, String tempatLahir, String tanggalLahir, char jenisKelamin, String noTelp, String noLisensi, String riwayatPendidikan, String spesialis, int pengalamanTahun, int jmlhPasien){
+        super(nik, namaLengkap, usia, tempatLahir, tanggalLahir, jenisKelamin, noTelp, noLisensi, riwayatPendidikan);
         this.spesialis = spesialis;
         this.pengalamanTahun = pengalamanTahun;
         this.jmlhPasien = jmlhPasien;
