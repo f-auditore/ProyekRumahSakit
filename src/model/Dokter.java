@@ -8,6 +8,12 @@ public class Dokter extends Individu {
         this.noLisensi = noLisensi;
     }
 
+    public void setNoLisensi(String noLisensi){
+        if (noLisensi.matches("\\d{10,13}")) {
+            this.noLisensi = noLisensi;
+        }
+    }
+
     @Override
     public void getPeran(){
         System.out.println("Dokter");
