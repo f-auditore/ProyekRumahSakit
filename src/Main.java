@@ -3,26 +3,21 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import model.Dokter;
 import model.DokterSpesialis;
+import model.Icu;
 import model.Pasien;
 import model.RekamMedis;
-import model.Ugd;
 
 public class Main {
     static ArrayList<Pasien> dataPasien = new ArrayList<>();
     static ArrayList<Dokter> dataDokter = new ArrayList<>();
-    static ArrayList<Ugd> dataUGD = new ArrayList<>();
+    static ArrayList<Icu> dataICU = new ArrayList<>();
     static ArrayList<RekamMedis> dataRekamMedis = new ArrayList<>();
 
     public static void main(String[] args) throws Exception {
         dataPasien.add(new Pasien("3171022804950003", "Rian Santoso", 31, "Jakarta", "28-04-1995",'L', "081298345712", "Hipertensi"));
         dataDokter.add(new Dokter("3273052110940005", "dr. Indah Permatasari", 31, "Bandung", "21-10-1994", 'P', "085711928344", "DK10293847561029"));
         dataDokter.add(new DokterSpesialis("3171031407880002", "dr. Aris Munandar, Sp.PD", 38, "Yogyakarta", "14-07-1988", 'L', "082188456723", "DS30495867120394", "Spesialis Penyakit Dalam", 12, 450));
-        dataUGD.add(new Ugd(
-                enums.StatusPasien.KOSONG,
-                enums.StatusDokter.STANDBY,
-                "UGD001",
-                enums.StatusRuangan.KOSONG
-        ));
+        dataICU.add(new Icu("ICU001", enums.StatusRuangan.KOSONG, 10, enums.LevelPerawatan.TINGGI));
         dataRekamMedis.add(new RekamMedis("RM001", "Rabies", "2024-06-01"));
 
         Scanner sc = new Scanner(System.in);
@@ -94,12 +89,12 @@ public class Main {
 
     // 4
     public static void pilihRuangan() {
-        System.out.println("Pilih Ruangan: \n1. UGD");
+        System.out.println("Pilih Ruangan: \n1. ICU");
         try (Scanner sc = new Scanner(System.in)) {
             int pilihanRuangan = sc.nextInt();
             switch (pilihanRuangan) {
                 case 1 ->
-                    lihatRuanganUgd();
+                    lihatRuanganIcu();
                 default ->
                     System.out.println("Pilihan ruangan tidak valid.");
             }
@@ -107,16 +102,16 @@ public class Main {
     }
 
     // 4.1
-    public static void lihatRuanganUgd() {
-        if (dataUGD.isEmpty() || (dataUGD.size() == 1 && dataUGD.get(0).getIdRuangan() == null)) {
+    public static void lihatRuanganIcu() {
+        if (dataICU.isEmpty() || (dataICU.size() == 1 && dataICU.get(0).getIdRuangan() == null)) {
             System.out.println("Belum ada data ruangan yang tersedia.");
         } else {
-            System.out.println("============= Data Ruangan UGD ============");
-            for (Ugd ugd : dataUGD) {
-                if (ugd.getIdRuangan() == null || ugd.getIdRuangan().trim().isEmpty()) {
+            System.out.println("============= Data Ruangan ICU ============");
+            for (Icu icu : dataICU) {
+                if (icu.getIdRuangan() == null || icu.getIdRuangan().trim().isEmpty()) {
                     continue;
                 }
-                ugd.outputInfoUgd();
+                icu.outputInfoIcu();
                 System.out.println("-----------------------------");
             }
         }
