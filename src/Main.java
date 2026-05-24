@@ -18,10 +18,10 @@ public class Main {
         dataDokter.add(new Dokter("3273052110940005", "dr. Indah Permatasari", 31, "Bandung", "21-10-1994", 'P', "085711928344", "DK10293847561029"));
         dataDokter.add(new DokterSpesialis("3171031407880002", "dr. Aris Munandar, Sp.PD", 38, "Yogyakarta", "14-07-1988", 'L', "082188456723", "DS30495867120394", "Spesialis Penyakit Dalam", 12, 450));
         dataUGD.add(new Ugd(
-                model.Ugd.StatusPasien.KOSONG,
-                model.Ugd.StatusDokter.STANDBY,
+                enums.StatusPasien.KOSONG,
+                enums.StatusDokter.STANDBY,
                 "UGD001",
-                model.Ruangan.StatusRuangan.KOSONG
+                enums.StatusRuangan.KOSONG
         ));
         dataRekamMedis.add(new RekamMedis("RM001", "Rabies", "2024-06-01"));
 

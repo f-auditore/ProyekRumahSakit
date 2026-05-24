@@ -1,4 +1,4 @@
-package model;
+package enums;
 
 public enum Jam {
     JAM_00_00("00:00"),

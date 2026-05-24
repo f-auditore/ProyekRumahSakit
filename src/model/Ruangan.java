@@ -1,10 +1,8 @@
 package model;
 
+import enums.StatusRuangan;
+
 public abstract class Ruangan {
-    
-    public enum StatusRuangan {
-        KOSONG, TERPAKAI, MAINTENANCE
-    }
 
     protected String idRuangan;
     protected StatusRuangan status;
