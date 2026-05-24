@@ -55,7 +55,7 @@ Ini pas kerjaan koding atau taskmu udh selesai ya, atau bisa pas lagi edit sesua
 2. **`git add .`**
    * Masukin semua perubahan lu ke 'keranjang' atau 'Checkout' buat disimpen
 3. **`git commit -m "pesan penjelasan"`**
-   * Simpen permanen ke Git. Tulis pesan yang jelas yaa... (contohnya: "fitur login kelar").
+   * Simpen permanen ke Git. Tulis pesan yang jelas yaa... (contohnya: "add [MZ]: fitur login kelar").
 4. **`git push origin <nama-branch>`**
    * Upload branch kamu beserta isinya ke cloud GitHub
 
