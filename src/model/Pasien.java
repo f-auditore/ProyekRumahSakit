@@ -22,7 +22,7 @@ public class Pasien extends Individu {
         for (int i = 0; i < dataPasien.size(); i++) {
             if (dataPasien.get(i).getNik().equals(nik)) {
                 Pasien pasienUbah = dataPasien.get(i);
-                pasienUbah.setNamaLengkap(namaLengkap);
+                pasienUbah.setNamaLengkap(newNamaLengkap);
                 pasienUbah.setUsia(newUsia);
                 pasienUbah.setTempatLahir(newTempatLahir);
                 pasienUbah.setTanggalLahir(newTanggalLahir);
