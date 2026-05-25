@@ -8,13 +8,17 @@ public class Jadwal {
     private Hari hari;
     private Jam jamMulai;
     private Jam jamSelesai;
+    private DokterSpesialis dokter;
+    private Pasien pasien;
+    private Icu ruangan;
 
-    // public Jadwal() {}
-
-    public Jadwal(Hari hari, Jam jamMulai, Jam jamSelesai) {
+    public Jadwal(Hari hari, Jam jamMulai, Jam jamSelesai, DokterSpesialis dokter, Pasien pasien, Icu ruangan) {
         this.hari = hari;
         this.jamMulai = jamMulai;
         this.jamSelesai = jamSelesai;
+        this.dokter = dokter;
+        this.pasien = pasien;
+        this.ruangan = ruangan;
     }
 
     public Hari getHari() {
@@ -41,8 +45,54 @@ public class Jadwal {
         this.jamSelesai = jamSelesai;
     }
 
+    // --- Getter & Setter: Dokter ---
+    public DokterSpesialis getDokter() {
+        return dokter;
+    }
+
+    public void setDokter(DokterSpesialis dokter) {
+        this.dokter = dokter;
+    }
+
+    // --- Getter & Setter: Pasien ---
+    public Pasien getPasien() {
+        return pasien;
+    }
+
+    public void setPasien(Pasien pasien) {
+        this.pasien = pasien;
+    }
+
+    // --- Getter & Setter: Ruangan ---
+    public Icu getRuangan() {
+        return ruangan;
+    }
+
+    public void setRuangan(Icu ruangan) {
+        this.ruangan = ruangan;
+    }
+
     @Override
     public String toString() {
-        return hari + " | " + jamMulai + " - " + jamSelesai;
+        String infoDokter = (dokter != null)
+                ? dokter.getNama() + " | NIK: " + dokter.getNik() + " | Spesialis: " + dokter.getSpesialis()
+                : "Dokter belum ditentukan";
+
+        String infoPasien = (pasien != null)
+                ? pasien.getNama() + " | NIK: " + pasien.getNik() + " | Penyakit: " + pasien.getPenyakit()
+                : "Pasien belum ditentukan";
+
+        String infoRuangan = (ruangan != null)
+                ? "ID: " + ruangan.getIdRuangan() + " | Status: " + ruangan.getStatus()
+                        + " | Kapasitas Bed: " + ruangan.getKapasitasBed()
+                        + " | Level Perawatan: " + ruangan.getLevelPerawatan()
+                : "Ruangan belum ditentukan";
+
+        return "=== Jadwal ==="
+                + "\nHari      : " + hari
+                + "\nJam       : " + jamMulai + " - " + jamSelesai
+                + "\nDokter    : " + infoDokter
+                + "\nPasien    : " + infoPasien
+                + "\nRuangan   : " + infoRuangan;
     }
 }
