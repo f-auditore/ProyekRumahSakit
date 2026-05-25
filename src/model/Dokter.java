@@ -15,8 +15,8 @@ public class Dokter extends Individu {
     }
 
     @Override
-    public void getPeran(){
-        System.out.println("Dokter");
+    public String getPeran(){
+        return "Dokter";
     }
 
     @Override
