@@ -14,8 +14,8 @@ public class DokterSpesialis extends Dokter{
     }
 
     @Override
-    public void getPeran(){
-        System.out.println("Dokter Spesialis");
+    public String getPeran(){
+        return "Dokter Spesialis";
     }
 
     @Override
