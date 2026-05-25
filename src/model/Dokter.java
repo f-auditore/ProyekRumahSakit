@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Dokter extends Individu {
     protected String noLisensi;
 
@@ -8,9 +10,25 @@ public class Dokter extends Individu {
         this.noLisensi = noLisensi;
     }
 
-    public void setNoLisensi(String noLisensi){
-        if (noLisensi.matches("\\d{10,13}")) {
-            this.noLisensi = noLisensi;
+    public void updateDokter(ArrayList<Dokter> dataDokter, String nik, String newNamaLengkap, int newUsia, String newTempatLahir, String newTanggalLahir, char newjenisKelamin, String newNoTelp, String newNoLisensi){
+        for (int i = 0; i < dataDokter.size(); i++) {
+            if (dataDokter.get(i).getNik().equals(nik)) {
+                Dokter dokterUbah = dataDokter.get(i);
+                dokterUbah.setNamaLengkap(newNamaLengkap);
+                dokterUbah.setUsia(newUsia);
+                dokterUbah.setTempatLahir(newTempatLahir);
+                dokterUbah.setTanggalLahir(newTanggalLahir);
+                dokterUbah.setJenisKelamin(newjenisKelamin);
+                dokterUbah.setNoTelp(newNoTelp);
+                dokterUbah.setNoLisensi(newNoLisensi);
+                break; 
+            }
+        }
+}
+
+    public void setNoLisensi(String newNoLisensi){
+        if (newNoLisensi.matches("\\d{10,13}")) {
+            this.noLisensi = newNoLisensi;
         }
     }
 
