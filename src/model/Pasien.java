@@ -15,8 +15,24 @@ public class Pasien extends Individu {
         dataPasien.add(new Pasien(nik, namaLengkap, usia, tempatLahir, tanggalLahir, jenisKelamin, noTelp, penyakit));
     }
 
+    public void updatePasien(ArrayList<Pasien> dataPasien, String nik, String newNamaLengkap, int newUsia, String newTempatLahir, String newTanggalLahir, char newjenisKelamin, String newNoTelp, String newPenyakit){
+        for (int i = 0; i < dataPasien.size(); i++) {
+            if (dataPasien.get(i).getNik().equals(nik)) {
+                Pasien pasienUbah = dataPasien.get(i);
+                pasienUbah.setNamaLengkap(namaLengkap);
+                pasienUbah.setUsia(newUsia);
+                pasienUbah.setTempatLahir(newTempatLahir);
+                pasienUbah.setTanggalLahir(newTanggalLahir);
+                pasienUbah.setJenisKelamin(newjenisKelamin);
+                pasienUbah.setNoTelp(newNoTelp);
+                pasienUbah.setPenyakit(newPenyakit);
+                break; //keluar dari loop setelah pasien ditemukan dan dihapus 
+            }
+        }
+    }
+
     public void setPenyakit(String newPenyakit){
-        System.out.println(this.penyakit = newPenyakit);
+        this.penyakit = newPenyakit;
     }
 
     public void hapusDatapasien(ArrayList<Pasien> dataPasien, String nik) {

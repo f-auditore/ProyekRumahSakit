@@ -26,43 +26,43 @@ public abstract class Individu {
         return nik;
     }
 
-    public String getNama(){
+    public String getNamaLengkap(){
         return namaLengkap;
     }
 
-    public void setNamaLengkap(String namaLengkap){
-        if (namaLengkap != null && !namaLengkap.trim().isEmpty()) {
-            this.namaLengkap = namaLengkap;
+    public void setNamaLengkap(String newNamaLengkap){
+        if (newNamaLengkap != null && !newNamaLengkap.trim().isEmpty()) {
+            this.namaLengkap = newNamaLengkap;
         }
     }
 
-    public void setNik(String nik){
-        if (nik.length() == 16 && nik.matches("\\d+")) { 
-            this.nik = nik;
+    public void setNik(String newNik){
+        if (newNik.length() == 16 && newNik.matches("\\d+")) { 
+            this.nik = newNik;
         }
     }
-    public void setTempatLahir(String tempatLahir){
-        if (tempatLahir != null && !tempatLahir.trim().isEmpty()) {
-            this.tempatLahir = tempatLahir;
+    public void setTempatLahir(String newTempatLahir){
+        if (newTempatLahir != null && !newTempatLahir.trim().isEmpty()) {
+            this.tempatLahir = newTempatLahir;
         }
     }
-    public void setTanggalLahir(String tanggalLahir){
-        if (tanggalLahir.matches("\\d{2}-\\d{2}-\\d{4}")) {
-            this.tanggalLahir = tanggalLahir;
+    public void setTanggalLahir(String newTanggalLahir){
+        if (newTanggalLahir.matches("\\d{2}-\\d{2}-\\d{4}")) {
+            this.tanggalLahir = newTanggalLahir;
         }
     }
-    public void setJenisKelamin(char jenisKelamin){
-        this.jenisKelamin = jenisKelamin;
+    public void setJenisKelamin(char newJenisKelamin){
+        this.jenisKelamin = newJenisKelamin;
     }
-    public void setUsia(int usia){
-        if(usia > 0 && usia < 150){
+    public void setUsia(int newUsia){
+        if(newUsia > 0 && newUsia < 150){
+            this.usia = newUsia;
+        }
+    }
 
-        }
-    }
-
-    public void setNoTelp(String noTelp){
-        if (noTelp.matches("\\d{10,12}")) {
-            this.noTelp = noTelp;
+    public void setNoTelp(String newNoTelp){
+        if (newNoTelp.matches("\\d{10,12}")) {
+            this.noTelp = newNoTelp;
         }
     }
 }
