@@ -75,17 +75,17 @@ public class Jadwal {
     @Override
     public String toString() {
         String infoDokter = (dokter != null)
-                ? dokter.getNama() + " | NIK: " + dokter.getNik() + " | Spesialis: " + dokter.getSpesialis()
+                ? dokter.getNamaLengkap() + " | NIK: " + dokter.getNik() + " | Spesialis: " + dokter.getSpesialis()
                 : "Dokter belum ditentukan";
 
         String infoPasien = (pasien != null)
-                ? pasien.getNama() + " | NIK: " + pasien.getNik() + " | Penyakit: " + pasien.getPenyakit()
+                ? pasien.getNamaLengkap() + " | NIK: " + pasien.getNik() + " | Penyakit: " + pasien.getPenyakit()
                 : "Pasien belum ditentukan";
 
         String infoRuangan = (ruangan != null)
                 ? "ID: " + ruangan.getIdRuangan() + " | Status: " + ruangan.getStatus()
-                        + " | Kapasitas Bed: " + ruangan.getKapasitasBed()
-                        + " | Level Perawatan: " + ruangan.getLevelPerawatan()
+                + " | Kapasitas Bed: " + ruangan.getKapasitasBed()
+                + " | Level Perawatan: " + ruangan.getLevelPerawatan()
                 : "Ruangan belum ditentukan";
 
         return "=== Jadwal ==="

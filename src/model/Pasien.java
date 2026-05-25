@@ -36,6 +36,7 @@ public class Pasien extends Individu {
 
     public void setPenyakit(String newPenyakit){
         this.penyakit = newPenyakit;
+    }
 
     public String getPenyakit() {
         return penyakit;

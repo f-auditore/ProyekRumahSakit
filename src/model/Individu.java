@@ -19,9 +19,6 @@ public abstract class Individu {
         this.noTelp = noTelp;
     }
 
-    abstract String getPeran();
-    abstract void tampilkanInfo();
-    
     public String getNik(){
         return nik;
     }
@@ -65,4 +62,7 @@ public abstract class Individu {
             this.noTelp = newNoTelp;
         }
     }
+
+    public abstract String getPeran();
+    public abstract void tampilkanInfo();
 }
