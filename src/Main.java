@@ -14,62 +14,67 @@ public class Main {
     static ArrayList<RekamMedis> dataRekamMedis = new ArrayList<>();
 
     public static void main(String[] args) throws Exception {
-        dataPasien.add(new Pasien("3171022804950003", "Rian Santoso", 31, "Jakarta", "28-04-1995",'L', "081298345712", "Hipertensi"));
-        dataDokter.add(new Dokter("3273052110940005", "dr. Indah Permatasari", 31, "Bandung", "21-10-1994", 'P', "085711928344", "DK10293847561029"));
-        dataDokter.add(new DokterSpesialis("3171031407880002", "dr. Aris Munandar, Sp.PD", 38, "Yogyakarta", "14-07-1988", 'L', "082188456723", "DS30495867120394", "Spesialis Penyakit Dalam", 12, 450));
+        dataPasien.add(new Pasien("3171022804950003", "Rian Santoso", 31, "Jakarta", "28-04-1995", 'L', "081298345712",
+                "Hipertensi"));
+        dataDokter.add(new Dokter("3273052110940005", "dr. Indah Permatasari", 31, "Bandung", "21-10-1994", 'P',
+                "085711928344", "DK10293847561029"));
+        dataDokter.add(new DokterSpesialis("3171031407880002", "dr. Aris Munandar, Sp.PD", 38, "Yogyakarta",
+                "14-07-1988", 'L', "082188456723", "DS30495867120394", "Spesialis Penyakit Dalam", 12, 450,
+                enums.StatusDokter.STANDBY));
         dataICU.add(new Icu("ICU001", enums.StatusRuangan.KOSONG, 10, enums.LevelPerawatan.TINGGI));
         dataRekamMedis.add(new RekamMedis("RM001", "Rabies", "2024-06-01"));
 
         Scanner sc = new Scanner(System.in);
-        System.out.println("=== SISTEM MANAJEMEN DATA PASIEN === \n1. Lihat Daftar Pasien \n2. Cari Pasien Berdasarkan NIK \n3. Lihat Rekam Medis\n4. Lihat Ruangan");
+        System.out.println(
+                "=== SISTEM MANAJEMEN DATA PASIEN === \n1. Lihat Daftar Pasien \n2. Cari Pasien Berdasarkan NIK \n3. Lihat Rekam Medis\n4. Lihat Ruangan");
         int pilihan = sc.nextInt();
         switch (pilihan) {
             case 1 ->
                 daftarPasien();
             case 2 ->
                 cariPasienNik(sc);
-            case 3 -> 
+            case 3 ->
                 lihatRekamMedis();
             case 4 ->
-                pilihRuangan();              
+                pilihRuangan();
             default ->
                 throw new AssertionError("Pilihan tidak valid.");
         }
     }
 
-    //1
+    // 1
     public static void daftarPasien() {
         System.out.println("\n============= Data Pasien =============");
         for (int i = 0; i < dataPasien.size(); i++) {
-            System.out.println("\t### Pasien " + (i+1) + " ###");
+            System.out.println("\t### Pasien " + (i + 1) + " ###");
             dataPasien.get(i).tampilkanInfo();
         }
         System.out.println("Data pasien baru berhasil disimpan...");
         System.out.println("-----------------------------");
     }
 
-    //2
+    // 2
     public static void cariPasienNik(Scanner sc) {
         System.out.println("\n============= Mencari Pasien Berdasarkan NIK =============");
         System.out.print("\tMasukkan awalan NIK: ");
         String pilihNik = sc.nextLine();
         System.out.println("");
 
-        //Looping per digit nik
+        // Looping per digit nik
         boolean ditemukan = false;
         for (int i = 0; i < dataPasien.size(); i++) {
-            if (dataPasien.get(i).getNik().startsWith(pilihNik)) { //Cari NIK yg awalanny angka inputan e.g. input "32" -> cari NIK yang dimulai dengan "32"
-                dataPasien.get(i).tampilkanInfo(); 
+            if (dataPasien.get(i).getNik().startsWith(pilihNik)) { // Cari NIK yg awalanny angka inputan e.g. input "32"
+                                                                   // -> cari NIK yang dimulai dengan "32"
+                dataPasien.get(i).tampilkanInfo();
                 ditemukan = true;
                 System.out.println("");
             }
         }
-        if (!ditemukan){
+        if (!ditemukan) {
             System.out.println("Pencarian tidak ditemukan.");
         }
         System.out.println("-----------------------------");
     }
-
 
     // 3
     public static void lihatRekamMedis() {
