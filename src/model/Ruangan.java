@@ -16,8 +16,21 @@ public abstract class Ruangan {
         return idRuangan;
     }
 
+    public void setIdRuangan(String idRuangan) {
+        if (idRuangan != null && !idRuangan.trim().isEmpty()) {
+            this.idRuangan = idRuangan;
+        }
+    }
+
     public StatusRuangan getStatus() {
         return status;
     }
 
+    public void setStatus(StatusRuangan status) {
+        this.status = status;
+    }
+
+    public abstract void updateRuangan(String idRuangan, StatusRuangan status);
+
+    public abstract void tampilkanInfoRuangan();
 }

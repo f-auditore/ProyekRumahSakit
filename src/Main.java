@@ -4,6 +4,7 @@ import java.util.Scanner;
 import model.Dokter;
 import model.DokterSpesialis;
 import model.Icu;
+import model.Jadwal;
 import model.Pasien;
 import model.RekamMedis;
 
@@ -11,6 +12,7 @@ public class Main {
     static ArrayList<Pasien> dataPasien = new ArrayList<>();
     static ArrayList<Dokter> dataDokter = new ArrayList<>();
     static ArrayList<Icu> dataICU = new ArrayList<>();
+    static ArrayList<Jadwal> dataJadwal = new ArrayList<>();
     static ArrayList<RekamMedis> dataRekamMedis = new ArrayList<>();
 
     public static void main(String[] args) throws Exception {
@@ -22,7 +24,11 @@ public class Main {
                 "14-07-1988", 'L', "082188456723", "DS30495867120394", "Spesialis Penyakit Dalam", 12, 450,
                 enums.StatusDokter.STANDBY));
         dataICU.add(new Icu("ICU001", enums.StatusRuangan.KOSONG, 10, enums.LevelPerawatan.TINGGI));
-        dataRekamMedis.add(new RekamMedis("RM001", "Rabies", "2024-06-01"));
+
+        Jadwal jadwal1 = new Jadwal(enums.Hari.SENIN, enums.Jam.JAM_08_00, enums.Jam.JAM_12_00,
+                (DokterSpesialis) dataDokter.get(1), dataPasien.get(0), dataICU.get(0));
+        dataJadwal.add(jadwal1);
+        dataRekamMedis.add(new RekamMedis("RM001", "Rabies", jadwal1));
 
         Scanner sc = new Scanner(System.in);
         System.out.println(
@@ -86,7 +92,7 @@ public class Main {
                 if (rekam.getId() == null || rekam.getId().trim().isEmpty()) {
                     continue;
                 }
-                rekam.uotputInfoRekamMedis();
+                rekam.outputInfoRekamMedis();
                 System.out.println("-----------------------------");
             }
         }
