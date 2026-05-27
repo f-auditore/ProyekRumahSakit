@@ -1,13 +1,12 @@
 package enums;
 
-public enum StatusPasien {
-    KOSONG("Kosong"),
-    ADA("Ada"),
-    KRITIS("Kritis");
+public enum JenisKelamin {
+    LAKI_LAKI("Laki-laki"),
+    PEREMPUAN("Perempuan");
 
     private final String label;
 
-    StatusPasien(String label) {
+    JenisKelamin(String label) {
         this.label = label;
     }
 

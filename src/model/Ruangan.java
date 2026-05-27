@@ -17,9 +17,7 @@ public abstract class Ruangan {
     }
 
     public void setIdRuangan(String idRuangan) {
-        if (idRuangan != null && !idRuangan.trim().isEmpty()) {
-            this.idRuangan = idRuangan;
-        }
+        this.idRuangan = idRuangan;
     }
 
     public StatusRuangan getStatus() {

@@ -12,6 +12,7 @@ public enum Hari {
     private final String label;
 
     Hari(String label) {
+
         this.label = label;
     }
 

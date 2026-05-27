@@ -1,1 +1,0 @@
-ini directory data

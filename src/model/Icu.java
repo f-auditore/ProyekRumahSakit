@@ -1,6 +1,5 @@
 package model;
 
-import java.util.ArrayList;
 import enums.LevelPerawatan;
 import enums.StatusRuangan;
 
@@ -31,31 +30,6 @@ public class Icu extends Ruangan {
         this.levelPerawatan = levelPerawatan;
     }
 
-    public void tambahIcu(ArrayList<Icu> dataIcu, String idRuangan, StatusRuangan status, int kapasitasBed, LevelPerawatan levelPerawatan) {
-        dataIcu.add(new Icu(idRuangan, status, kapasitasBed, levelPerawatan));
-    }
-
-    public void updateIcu(ArrayList<Icu> dataIcu, String idRuangan, StatusRuangan newStatus, int newKapasitasBed, LevelPerawatan newLevelPerawatan) {
-        for (int i = 0; i < dataIcu.size(); i++) {
-            if (dataIcu.get(i).getIdRuangan().equals(idRuangan)) {
-                Icu icuUbah = dataIcu.get(i);
-                icuUbah.setStatus(newStatus);
-                icuUbah.setKapasitasBed(newKapasitasBed);
-                icuUbah.setLevelPerawatan(newLevelPerawatan);
-                break;
-            }
-        }
-    }
-
-    public void hapusIcu(ArrayList<Icu> dataIcu, String idRuangan) {
-        for (int i = 0; i < dataIcu.size(); i++) {
-            if (dataIcu.get(i).getIdRuangan().equals(idRuangan)) {
-                dataIcu.remove(i);
-                break;
-            }
-        }
-    }
-
     @Override
     public void updateRuangan(String idRuangan, StatusRuangan status) {
         setIdRuangan(idRuangan);
@@ -64,16 +38,6 @@ public class Icu extends Ruangan {
 
     @Override
     public void tampilkanInfoRuangan() {
-        System.out.println("ID Ruangan\t\t: " + getIdRuangan());
-        System.out.println("Status Ruangan\t\t: " + getStatus());
-        System.out.println("Kapasitas Bed\t\t: " + kapasitasBed);
-        System.out.println("Level Perawatan\t\t: " + levelPerawatan);
-    }
-
-    public void outputInfoIcu() {
-        System.out.println("ID Ruangan\t\t: " + getIdRuangan());
-        System.out.println("Status Ruangan\t: " + getStatus());
-        System.out.println("Kapasitas Bed\t\t: " + kapasitasBed);
-        System.out.println("Level Perawatan\t: " + levelPerawatan);
+        System.out.println("ID ICU: " + getIdRuangan() + " | Status: " + getStatus());
     }
 }
