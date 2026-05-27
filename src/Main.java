@@ -18,6 +18,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         dataPasien.add(new Pasien("3171022804950003", "Rian Santoso", 31, "Jakarta", "28-04-1995", 'L', "081298345712",
                 "Hipertensi"));
+        dataPasien.add(new Pasien("323456789", "Ani", 19, "Bandung", "12-06-2006", 'P', "0812345", "Diabetes"));
         dataDokter.add(new Dokter("3273052110940005", "dr. Indah Permatasari", 31, "Bandung", "21-10-1994", 'P',
                 "085711928344", "DK10293847561029"));
         dataDokter.add(new DokterSpesialis("3171031407880002", "dr. Aris Munandar, Sp.PD", 38, "Yogyakarta",
@@ -37,6 +38,7 @@ public class Main {
                 System.out.println("=== SISTEM MANAJEMEN DATA PASIEN === \n1. Lihat Daftar Pasien \n2. Cari Pasien Berdasarkan NIK \n3. Lihat Rekam Medis\n4. Lihat Ruangan\n0. Keluar");
                 System.out.print("Pilihan: ");
                 int pilihan = sc.nextInt();
+                sc.nextLine();
                 switch (pilihan) {
                     case 1 -> daftarPasien();
                     case 2 -> cariPasienNik(sc);
