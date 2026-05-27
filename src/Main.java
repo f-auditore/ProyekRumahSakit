@@ -31,21 +31,28 @@ public class Main {
         dataRekamMedis.add(new RekamMedis("RM001", "Rabies", jadwal1));
 
         Scanner sc = new Scanner(System.in);
-        System.out.println(
-                "=== SISTEM MANAJEMEN DATA PASIEN === \n1. Lihat Daftar Pasien \n2. Cari Pasien Berdasarkan NIK \n3. Lihat Rekam Medis\n4. Lihat Ruangan");
-        int pilihan = sc.nextInt();
-        switch (pilihan) {
-            case 1 ->
-                daftarPasien();
-            case 2 ->
-                cariPasienNik(sc);
-            case 3 ->
-                lihatRekamMedis();
-            case 4 ->
-                pilihRuangan();
-            default ->
-                throw new AssertionError("Pilihan tidak valid.");
+        
+        while (true) { 
+            try {
+                System.out.println("=== SISTEM MANAJEMEN DATA PASIEN === \n1. Lihat Daftar Pasien \n2. Cari Pasien Berdasarkan NIK \n3. Lihat Rekam Medis\n4. Lihat Ruangan\n0. Keluar");
+                System.out.print("Pilihan: ");
+                int pilihan = sc.nextInt();
+                switch (pilihan) {
+                    case 1 -> daftarPasien();
+                    case 2 -> cariPasienNik(sc);
+                    case 3 -> lihatRekamMedis();
+                    case 4 -> pilihRuangan();
+                    case 0 -> {
+                        System.out.println("Terima Kasih!");
+                        System.exit(0);
+                    }
+                    default -> throw new AssertionError();
+                }
+            } catch (Exception e) {
+                System.out.println("Pilihan tidak valid");
+            }
         }
+        
     }
 
     // 1
@@ -55,7 +62,6 @@ public class Main {
             System.out.println("\t### Pasien " + (i + 1) + " ###");
             dataPasien.get(i).tampilkanInfo();
         }
-        System.out.println("Data pasien baru berhasil disimpan...");
         System.out.println("-----------------------------");
     }
 
@@ -65,12 +71,9 @@ public class Main {
         System.out.print("\tMasukkan awalan NIK: ");
         String pilihNik = sc.nextLine();
         System.out.println("");
-
-        // Looping per digit nik
         boolean ditemukan = false;
         for (int i = 0; i < dataPasien.size(); i++) {
-            if (dataPasien.get(i).getNik().startsWith(pilihNik)) { // Cari NIK yg awalanny angka inputan e.g. input "32"
-                                                                   // -> cari NIK yang dimulai dengan "32"
+            if (dataPasien.get(i).getNik().startsWith(pilihNik)) {
                 dataPasien.get(i).tampilkanInfo();
                 ditemukan = true;
                 System.out.println("");
