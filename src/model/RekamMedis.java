@@ -16,6 +16,10 @@ public class RekamMedis {
         return id;
     }
 
+    public void setId(String id){
+        this.id = id;
+    }
+
     public String getHasilDiagnosis() {
         return hasilDiagnosis;
     }
