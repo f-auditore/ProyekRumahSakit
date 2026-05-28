@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Pasien extends Individu {
 
@@ -16,6 +17,21 @@ public class Pasien extends Individu {
     public void tambahPasien(ArrayList<Pasien> dataPasien, String nik, String namaLengkap, int usia, String tempatLahir,
             String tanggalLahir, char jenisKelamin, String noTelp, String penyakit) {
         dataPasien.add(new Pasien(nik, namaLengkap, usia, tempatLahir, tanggalLahir, jenisKelamin, noTelp, penyakit));
+    }
+
+    public static void cariPasienNik(ArrayList<Pasien> dataPasien, String pilihNik) {
+        boolean ditemukan = false;
+        for (int i = 0; i < dataPasien.size(); i++) {
+            if (dataPasien.get(i).getNik().startsWith(pilihNik)) {
+                dataPasien.get(i).tampilkanInfo();
+                ditemukan = true;
+                System.out.println("");
+            }
+        }
+        if (!ditemukan) {
+            System.out.println("Pencarian tidak ditemukan.");
+        }
+        System.out.println("-----------------------------");
     }
 
     public void updatePasien(ArrayList<Pasien> dataPasien, String nik, String newNamaLengkap, int newUsia, String newTempatLahir, String newTanggalLahir, char newjenisKelamin, String newNoTelp, String newPenyakit){

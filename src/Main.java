@@ -79,18 +79,7 @@ public class Main {
         System.out.print("\tMasukkan awalan NIK: ");
         String pilihNik = sc.nextLine();
         System.out.println("");
-        boolean ditemukan = false;
-        for (int i = 0; i < dataPasien.size(); i++) {
-            if (dataPasien.get(i).getNik().startsWith(pilihNik)) {
-                dataPasien.get(i).tampilkanInfo();
-                ditemukan = true;
-                System.out.println("");
-            }
-        }
-        if (!ditemukan) {
-            System.out.println("Pencarian tidak ditemukan.");
-        }
-        System.out.println("-----------------------------");
+        Pasien.cariPasienNik(dataPasien, pilihNik);
     }
 
     // 3
