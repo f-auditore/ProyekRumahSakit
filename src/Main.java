@@ -16,20 +16,8 @@ public class Main {
     static ArrayList<RekamMedis> dataRekamMedis = new ArrayList<>();
 
     public static void main(String[] args) throws Exception {
-        dataPasien.add(new Pasien("3171022804950003", "Rian Santoso", 31, "Jakarta", "28-04-1995", 'L', "081298345712",
-                "Hipertensi"));
-        dataPasien.add(new Pasien("323456789", "Ani", 19, "Bandung", "12-06-2006", 'P', "0812345", "Diabetes"));
-        dataDokter.add(new Dokter("3273052110940005", "dr. Indah Permatasari", 31, "Bandung", "21-10-1994", 'P',
-                "085711928344", "DK10293847561029"));
-        dataDokter.add(new DokterSpesialis("3171031407880002", "dr. Aris Munandar, Sp.PD", 38, "Yogyakarta",
-                "14-07-1988", 'L', "082188456723", "DS30495867120394", "Spesialis Penyakit Dalam", 12, 450,
-                enums.StatusDokter.STANDBY));
-        dataICU.add(new Icu("ICU001", enums.StatusRuangan.KOSONG, 10, enums.LevelPerawatan.TINGGI));
 
-        Jadwal jadwal1 = new Jadwal(enums.Hari.SENIN, enums.Jam.JAM_08_00, enums.Jam.JAM_12_00,
-                (DokterSpesialis) dataDokter.get(1), dataPasien.get(0), dataICU.get(0));
-        dataJadwal.add(jadwal1);
-        dataRekamMedis.add(new RekamMedis("RM001", "Rabies", jadwal1));
+        dataDummy();
 
         Scanner sc = new Scanner(System.in);
         
@@ -55,6 +43,24 @@ public class Main {
             }
         }
         
+    }
+
+    public static void dataDummy(){
+        dataPasien.add(new Pasien("3171022804950003", "Rian Santoso", 31, "Jakarta", "28-04-1995", 'L', "081298345712",
+                "Hipertensi"));
+        dataPasien.add(new Pasien("323456789", "Ani", 19, "Bandung", "12-06-2006", 'P', "0812345", "Diabetes"));
+        dataDokter.add(new Dokter("3273052110940005", "dr. Indah Permatasari", 31, "Bandung", "21-10-1994", 'P',
+                "085711928344", "DK10293847561029"));
+        dataDokter.add(new DokterSpesialis("3171031407880002", "dr. Aris Munandar, Sp.PD", 38, "Yogyakarta",
+                "14-07-1988", 'L', "082188456723", "DS30495867120394", "Spesialis Penyakit Dalam", 12, 450,
+                enums.StatusDokter.STANDBY));
+        dataICU.add(new Icu("ICU001", enums.StatusRuangan.KOSONG, 10, enums.LevelPerawatan.TINGGI));
+
+        Jadwal jadwal1 = new Jadwal(enums.Hari.SENIN, enums.Jam.JAM_08_00, enums.Jam.JAM_12_00,
+                (DokterSpesialis) dataDokter.get(1), dataPasien.get(0), dataICU.get(0));
+        dataJadwal.add(jadwal1);
+        dataRekamMedis.add(new RekamMedis("RM001", "Rabies", jadwal1));
+
     }
 
     // 1
