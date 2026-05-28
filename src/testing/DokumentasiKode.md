@@ -1,4 +1,4 @@
-# DOKUMENTASI KODE DASHBOARD SISTEM MANAJEMEN RUMAH SAKIT
+# DOKUMENTASI KODE DISINI YA
 
 ## 1. PENDAHULUAN
 Kelas `Main` merupakan program ini dari Project kami **Sistem Manajemen Rumah Sakit**. Program ini menggunakan antarmuka pengguna berbasis grafis (GUI) memanfaatkan pustaka **Java Swing** dan **AWT**. Desain GUI ini dirancang untuk menyatukan dan mengelola 4 model rumah sakit: **Pasien**, **Dokter**, **Ruangan ICU**, dan **Jadwal Kontrol**.
@@ -24,7 +24,7 @@ private static final ArrayList<Jadwal> dataJadwal = new ArrayList<>();
 ---
 
 ## 3. UI & LAYOUTING
-Dasbor dirancang dengan pembagian visual interaktif menggunakan kombinasi beberapa Layout Manager:
+Dasbor dirancang pakai pembagian visual interaktif menggunakan kombinasi beberapa Layout Manager:
 1. `BorderLayout` (Tata Letak Utama)
    
    Membagi jendela menjadi beberapa region (North, West, Center) untuk memisahkan navigasi, formulir, dan tabel data
@@ -39,7 +39,7 @@ formCards = new JPanel(cardLayout);
 
 // Menambahkan form ke CardLayout berdasarkan kategori kats[]
 formCards.add(pPasien, kats[0]);
-formCards.add(new JLabel("Tidak ada input untuk data Dokter."), kats[1]);
+formCards.add(new JLabel("Tidak ada input untuk data Dokter"), kats[1]);
 formCards.add(pIcu, kats[2]);
 formCards.add(pJadwal, kats[3]);
 ```
@@ -174,6 +174,3 @@ formCards.add(pJadwal, kats[3]);
 2. Perulangan
    
    Menggantikan perulangan `for` yang panjang saat melakukan filter dengan `.forEach()`
-3. Mekanisme Peningkatan GUI
-   
-   Aplikasi dieksekusi di dalam blok `SwingUtilities.invokeLater()` pada metode `main` untuk memastikan pembuatan antarmuka grafis berjalan aman.
