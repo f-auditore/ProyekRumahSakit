@@ -30,7 +30,7 @@ public class Main {
                 switch (pilihan) {
                     case 1 -> daftarPasien();
                     case 2 -> cariPasienNik(sc);
-                    case 3 -> updatePasien();
+                    case 3 -> updatePasien(sc);
                     case 4 -> hapusPasien();
                     case 5 -> lihatRekamMedis();
                     case 6 -> pilihRuangan();
@@ -50,7 +50,6 @@ public class Main {
     public static void dataDummy(){
         dataPasien.add(new Pasien("3171022804950003", "Rian Santoso", 31, "Jakarta", "28-04-1995", 'L', "081298345712",
                 "Hipertensi"));
-        dataPasien.add(new Pasien("323456789", "Ani", 19, "Bandung", "12-06-2006", 'P', "0812345", "Diabetes"));
         dataDokter.add(new Dokter("3273052110940005", "dr. Indah Permatasari", 31, "Bandung", "21-10-1994", 'P',
                 "085711928344", "DK10293847561029"));
         dataDokter.add(new DokterSpesialis("3171031407880002", "dr. Aris Munandar, Sp.PD", 38, "Yogyakarta",
@@ -86,36 +85,42 @@ public class Main {
     }
 
     //3
-    public static void updatePasien(){
-        boolean ditemukan = false;
-        try (Scanner sc = new Scanner(System.in)) {
+    public static void updatePasien(Scanner sc){
             System.out.print("Masukkan NIK Pasien yang Ingin Diupdate Datanya: ");
             String nik = sc.nextLine();
 
-            System.out.println("\tMasukkan Data Baru");
-            System.out.print("Nama: ");
-            String newNamaLengkap = sc.nextLine();
-            System.out.print("Usia: ");
-            int newUsia = sc.nextInt();
-                          sc.nextLine();
-            System.out.print("Tempat Lahir: ");
-            String newTempatLahir = sc.nextLine();
-            System.out.print("Tanggal Lahir: ");
-            String newTanggalLahir = sc.nextLine();
-            System.out.print("Jenis Kelamin: ");
-            char newjenisKelamin = sc.nextLine().charAt(0);
-            System.out.print("Nomor Telepon: ");
-            String newNoTelp = sc.nextLine();
-            System.out.print("Pengakit: ");
-            String newPenyakit = sc.nextLine();
+            boolean ditemukan = false;
+            for (int i = 0; i < dataPasien.size(); i++) {
+                if (dataPasien.get(i).getNik().equals(nik)) {
+                    ditemukan = true;
+                    break;
+                }
+            }
+
+            if (ditemukan) {
+                System.out.println("\tMasukkan Data Baru");
+                System.out.print("Nama: ");
+                String newNamaLengkap = sc.nextLine();
+                System.out.print("Usia: ");
+                int newUsia = sc.nextInt();
+                              sc.nextLine();
+                System.out.print("Tempat Lahir: ");
+                String newTempatLahir = sc.nextLine();
+                System.out.print("Tanggal Lahir: ");
+                String newTanggalLahir = sc.nextLine();
+                System.out.print("Jenis Kelamin: ");
+                char newjenisKelamin = sc.nextLine().charAt(0);
+                System.out.print("Nomor Telepon: ");
+                String newNoTelp = sc.nextLine();
+                System.out.print("Pengakit: ");
+                String newPenyakit = sc.nextLine();
             
-            Pasien.updatePasien(dataPasien, nik, newNamaLengkap, newUsia,newTempatLahir, newTanggalLahir, newjenisKelamin, newNoTelp, newPenyakit);
-            System.out.println("Data pasien berhasil diperbarui...");
+                Pasien.updatePasien(dataPasien, nik, newNamaLengkap, newUsia,newTempatLahir, newTanggalLahir, newjenisKelamin, newNoTelp, newPenyakit);
+                System.out.println("Data pasien berhasil diperbarui...");
+            } else {
+                System.out.println("Pencarian tidak ditemukan.");
+            }
             System.out.println("-----------------------------");
-        }
-        if (!ditemukan) {
-            System.out.println("Pencarian tidak ditemukan.");
-        }
     }
 
     //4
