@@ -23,7 +23,7 @@ public class Main {
         
         while (true) { 
             try {
-                System.out.println("=== SISTEM MANAJEMEN DATA PASIEN === \n1. Lihat Daftar Pasien \n2. Cari Pasien Berdasarkan NIK \n3. Update data pasien \n4. Hapus Data Pasien \n5.Lihat Rekam Medis \n6.Pilih Ruangan \n0. Keluar");
+                System.out.println("=== SISTEM MANAJEMEN DATA PASIEN === \n1. Lihat Daftar Pasien \n2. Cari Pasien Berdasarkan NIK \n3. Update data pasien \n4. Hapus Data Pasien \n5. Lihat Rekam Medis \n6. Pilih Ruangan \n0. Keluar");
                 System.out.print("Pilihan: ");
                 int pilihan = sc.nextInt();
                 sc.nextLine();
@@ -31,7 +31,7 @@ public class Main {
                     case 1 -> daftarPasien();
                     case 2 -> cariPasienNik(sc);
                     case 3 -> updatePasien(sc);
-                    case 4 -> hapusPasien();
+                    case 4 -> hapusPasien(sc);
                     case 5 -> lihatRekamMedis();
                     case 6 -> pilihRuangan();
                     case 0 -> {
@@ -88,7 +88,7 @@ public class Main {
     public static void updatePasien(Scanner sc){
             System.out.print("Masukkan NIK Pasien yang Ingin Diupdate Datanya: ");
             String nik = sc.nextLine();
-
+            //mencari apkh niknya ada/tdk
             boolean ditemukan = false;
             for (int i = 0; i < dataPasien.size(); i++) {
                 if (dataPasien.get(i).getNik().equals(nik)) {
@@ -96,7 +96,6 @@ public class Main {
                     break;
                 }
             }
-
             if (ditemukan) {
                 System.out.println("\tMasukkan Data Baru");
                 System.out.print("Nama: ");
@@ -118,13 +117,26 @@ public class Main {
                 Pasien.updatePasien(dataPasien, nik, newNamaLengkap, newUsia,newTempatLahir, newTanggalLahir, newjenisKelamin, newNoTelp, newPenyakit);
                 System.out.println("Data pasien berhasil diperbarui...");
             } else {
-                System.out.println("Pencarian tidak ditemukan.");
+                System.out.println("Pasien tidak ditemukan.");
             }
             System.out.println("-----------------------------");
     }
 
     //4
-    public static void hapusPasien(){
+    public static void hapusPasien(Scanner sc){
+        System.out.print("Masukkan NIK Pasien yang Ingin Diupdate Datanya: ");
+        String nik = sc.nextLine();
+        //mencari apkh niknya ada/tdk
+        boolean ditemukan = false;
+        for (int i = 0; i < dataPasien.size(); i++) {
+            if (dataPasien.get(i).getNik().equals(nik)) {
+                ditemukan = true;
+                break;
+            }
+        }
+        if (ditemukan){
+            Pasien.hapusPasien(dataPasien, nik);
+        }
         System.out.println("Data pasien berhasil dihapus...");
         System.out.println("-----------------------------");
     }

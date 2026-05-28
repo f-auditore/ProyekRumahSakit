@@ -33,7 +33,6 @@ public class Pasien extends Individu {
     }
 
     public static void updatePasien(ArrayList<Pasien> dataPasien, String nik, String newNamaLengkap, int newUsia, String newTempatLahir, String newTanggalLahir, char newjenisKelamin, String newNoTelp, String newPenyakit){
-        boolean ditemukan = false;
         for (int i = 0; i < dataPasien.size(); i++) {
             if (dataPasien.get(i).getNik().equals(nik)) {
                 Pasien pasienUbah = dataPasien.get(i);
@@ -44,12 +43,8 @@ public class Pasien extends Individu {
                 pasienUbah.setJenisKelamin(newjenisKelamin);
                 pasienUbah.setNoTelp(newNoTelp);
                 pasienUbah.setPenyakit(newPenyakit);
-                ditemukan = true;
                 break; //keluar dari loop setelah pasien ditemukan dan dihapus 
             }
-        }
-        if (!ditemukan) {
-            System.out.println("Pencarian tidak ditemukan.");
         }
         
     }
@@ -62,11 +57,11 @@ public class Pasien extends Individu {
         return penyakit;
     }
 
-    public void hapusPasien(ArrayList<Pasien> dataPasien, String nik) {
+    public static void hapusPasien(ArrayList<Pasien> dataPasien, String nik) {
         for (int i = 0; i < dataPasien.size(); i++) {
             if (dataPasien.get(i).getNik().equals(nik)) {
                 dataPasien.remove(i);
-                break; // keluar dari loop setelah pasien ditemukan dan dihapus
+                break;
             }
         }
     }
