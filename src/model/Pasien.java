@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Pasien extends Individu {
 
@@ -31,10 +30,9 @@ public class Pasien extends Individu {
         if (!ditemukan) {
             System.out.println("Pencarian tidak ditemukan.");
         }
-        System.out.println("-----------------------------");
     }
 
-    public void updatePasien(ArrayList<Pasien> dataPasien, String nik, String newNamaLengkap, int newUsia, String newTempatLahir, String newTanggalLahir, char newjenisKelamin, String newNoTelp, String newPenyakit){
+    public static void updatePasien(ArrayList<Pasien> dataPasien, String nik, String newNamaLengkap, int newUsia, String newTempatLahir, String newTanggalLahir, char newjenisKelamin, String newNoTelp, String newPenyakit){
         for (int i = 0; i < dataPasien.size(); i++) {
             if (dataPasien.get(i).getNik().equals(nik)) {
                 Pasien pasienUbah = dataPasien.get(i);
@@ -48,6 +46,7 @@ public class Pasien extends Individu {
                 break; //keluar dari loop setelah pasien ditemukan dan dihapus 
             }
         }
+        
     }
 
     public void setPenyakit(String newPenyakit){
@@ -58,7 +57,7 @@ public class Pasien extends Individu {
         return penyakit;
     }
 
-    public void hapusDatapasien(ArrayList<Pasien> dataPasien, String nik) {
+    public void hapusPasien(ArrayList<Pasien> dataPasien, String nik) {
         for (int i = 0; i < dataPasien.size(); i++) {
             if (dataPasien.get(i).getNik().equals(nik)) {
                 dataPasien.remove(i);

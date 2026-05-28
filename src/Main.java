@@ -23,15 +23,17 @@ public class Main {
         
         while (true) { 
             try {
-                System.out.println("=== SISTEM MANAJEMEN DATA PASIEN === \n1. Lihat Daftar Pasien \n2. Cari Pasien Berdasarkan NIK \n3. Lihat Rekam Medis\n4. Lihat Ruangan\n0. Keluar");
+                System.out.println("=== SISTEM MANAJEMEN DATA PASIEN === \n1. Lihat Daftar Pasien \n2. Cari Pasien Berdasarkan NIK \n3. Update data pasien \n4. Hapus Data Pasien \n5.Lihat Rekam Medis \n6.Pilih Ruangan \n0. Keluar");
                 System.out.print("Pilihan: ");
                 int pilihan = sc.nextInt();
                 sc.nextLine();
                 switch (pilihan) {
                     case 1 -> daftarPasien();
                     case 2 -> cariPasienNik(sc);
-                    case 3 -> lihatRekamMedis();
-                    case 4 -> pilihRuangan();
+                    case 3 -> updatePasien();
+                    case 4 -> hapusPasien();
+                    case 5 -> lihatRekamMedis();
+                    case 6 -> pilihRuangan();
                     case 0 -> {
                         System.out.println("Terima Kasih!");
                         System.exit(0);
@@ -80,9 +82,49 @@ public class Main {
         String pilihNik = sc.nextLine();
         System.out.println("");
         Pasien.cariPasienNik(dataPasien, pilihNik);
+        System.out.println("-----------------------------");
     }
 
-    // 3
+    //3
+    public static void updatePasien(){
+        boolean ditemukan = false;
+        try (Scanner sc = new Scanner(System.in)) {
+            System.out.print("Masukkan NIK Pasien yang Ingin Diupdate Datanya: ");
+            String nik = sc.nextLine();
+
+            System.out.println("\tMasukkan Data Baru");
+            System.out.print("Nama: ");
+            String newNamaLengkap = sc.nextLine();
+            System.out.print("Usia: ");
+            int newUsia = sc.nextInt();
+                          sc.nextLine();
+            System.out.print("Tempat Lahir: ");
+            String newTempatLahir = sc.nextLine();
+            System.out.print("Tanggal Lahir: ");
+            String newTanggalLahir = sc.nextLine();
+            System.out.print("Jenis Kelamin: ");
+            char newjenisKelamin = sc.nextLine().charAt(0);
+            System.out.print("Nomor Telepon: ");
+            String newNoTelp = sc.nextLine();
+            System.out.print("Pengakit: ");
+            String newPenyakit = sc.nextLine();
+            
+            Pasien.updatePasien(dataPasien, nik, newNamaLengkap, newUsia,newTempatLahir, newTanggalLahir, newjenisKelamin, newNoTelp, newPenyakit);
+            System.out.println("Data pasien berhasil diperbarui...");
+            System.out.println("-----------------------------");
+        }
+        if (!ditemukan) {
+            System.out.println("Pencarian tidak ditemukan.");
+        }
+    }
+
+    //4
+    public static void hapusPasien(){
+        System.out.println("Data pasien berhasil dihapus...");
+        System.out.println("-----------------------------");
+    }
+
+    //5
     public static void lihatRekamMedis() {
         if (dataRekamMedis.isEmpty() || (dataRekamMedis.size() == 1 && dataRekamMedis.get(0).getId() == null)) {
             System.out.println("Belum ada data rekam medis yang tersedia.");
@@ -98,7 +140,7 @@ public class Main {
         }
     }
 
-    // 4
+    //6
     public static void pilihRuangan() {
         System.out.println("Pilih Ruangan: \n1. ICU");
         try (Scanner sc = new Scanner(System.in)) {
