@@ -13,7 +13,7 @@ public class Jadwal {
     private Pasien pasien;
     private Icu ruangan;
 
-    public Jadwal(String idJadwal, Hari hari, Jam jamMulai, Jam jamSelesai, DokterSpesialis dokter, Pasien pasien, Icu ruangan) {
+    public Jadwal(Hari hari, Jam jamMulai, Jam jamSelesai, DokterSpesialis dokter, Pasien pasien, Icu ruangan) {
         this.idJadwal = idJadwal;
         this.hari = hari;
         this.jamMulai = jamMulai;
@@ -25,10 +25,6 @@ public class Jadwal {
 
     public String getIdJadwal(){
         return idJadwal;
-    }
-
-    public void setIdJadwal(String idJadwal){
-        this.idJadwal = idJadwal;
     }
 
     public Hari getHari() {
@@ -43,19 +39,10 @@ public class Jadwal {
         return jamMulai;
     }
 
-    public void setJamMulai(Jam jamMulai) {
-        this.jamMulai = jamMulai;
-    }
-
     public Jam getJamSelesai() {
         return jamSelesai;
     }
 
-    public void setJamSelesai(Jam jamSelesai) {
-        this.jamSelesai = jamSelesai;
-    }
-
-    // --- Getter & Setter: Dokter ---
     public DokterSpesialis getDokter() {
         return dokter;
     }
