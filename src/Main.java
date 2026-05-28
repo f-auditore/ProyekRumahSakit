@@ -8,12 +8,13 @@ import model.*;
 
 public class Main extends JFrame {
 
+    // Repository Data Utama
     private static final ArrayList<Pasien> dataPasien = new ArrayList<>();
     private static final ArrayList<Dokter> dataDokter = new ArrayList<>();
     private static final ArrayList<Icu> dataICU = new ArrayList<>();
     private static final ArrayList<Jadwal> dataJadwal = new ArrayList<>();
-    private static final ArrayList<RekamMedis> dataRekamMedis = new ArrayList<>();
 
+    // Komponen UI Utama
     private JComboBox<String> cbKategori;
     private JTable mainTable;
     private DefaultTableModel[] models;
@@ -21,20 +22,20 @@ public class Main extends JFrame {
     private JPanel formCards, btnPanel;
     private JButton btnTambah, btnUpdate, btnHapus, btnCari, btnReset;
 
+    // Form Input Fields
     private JTextField txtPasienNik, txtPasienNama, txtPasienUsia, txtPasienTempat, txtPasienTanggal, txtPasienTelp, txtPasienPenyakit, txtPasienCariNik;
     private JComboBox<JenisKelamin> cbPasienJk;
-    private JTextField txtIcuId, txtIcuKapasitas, txtRmId, txtRmDiagnosis;
+    private JTextField txtIcuId, txtIcuKapasitas;
     private JComboBox<StatusRuangan> cbIcuStatus;
     private JComboBox<LevelPerawatan> cbIcuLevel;
     private JComboBox<Hari> cbJadwalHari;
     private JComboBox<Jam> cbJadwalMulai, cbJadwalSelesai;
-    private JComboBox<String> cbJadwalDokter, cbJadwalPasien, cbJadwalRuangan, cbRmJadwal;
-    private JTextField txtIdJadwal;
+    private JComboBox<String> cbJadwalDokter, cbJadwalPasien, cbJadwalRuangan;
 
-    private final String[] kats = {"Manajemen Pasien", "Daftar Dokter (View Only)", "Ruangan ICU", "Jadwal Kontrol", "Rekam Medis"};
+    private final String[] kats = {"Manajemen Pasien", "Daftar Dokter (View Only)", "Ruangan ICU", "Jadwal Kontrol"};
 
     public Main() {
-        setTitle("Dashboard Rumah Sakit Terpadu");
+        setTitle("Dashboard Sistem Manajemen Rumah Sakit");
         setSize(1200, 650);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -46,17 +47,19 @@ public class Main extends JFrame {
         syncUI();
     }
 
+    // 1. Inisialisasi Model Tabel menggunakan Array agar ringkas
     private void initModels() {
         models = new DefaultTableModel[]{
             new DefaultTableModel(new String[]{"NIK", "Nama", "Usia", "Tempat", "Tanggal", "Jenis Kelamin", "Telepon", "Penyakit"}, 0),
             new DefaultTableModel(new String[]{"NIK", "Nama Dokter", "Peran/Pangkat", "Detail Spesialisasi"}, 0),
             new DefaultTableModel(new String[]{"ID Ruangan", "Status", "Kapasitas Bed", "Level Perawatan"}, 0),
-            new DefaultTableModel(new String[]{"ID Jadwal", "Hari", "Mulai", "Selesai", "Dokter", "Pasien", "Ruangan"}, 0),
-            new DefaultTableModel(new String[]{"ID Rekam Medis", "Hasil Diagnosis", "Waktu Pelaksanaan"}, 0)
+            new DefaultTableModel(new String[]{"Hari", "Mulai", "Selesai", "Dokter", "Pasien", "Ruangan"}, 0)
         };
     }
 
+    // 2. Pembuatan Komponen UI & Layouting
     private void initComponents() {
+        // Panel Atas (Navigasi & Pencarian)
         JPanel northPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
         northPanel.add(new JLabel("Pilih Menu Kategori:"));
         northPanel.add(cbKategori = new JComboBox<>(kats));
@@ -65,9 +68,11 @@ public class Main extends JFrame {
         northPanel.add(btnCari = new JButton("Cari"));
         northPanel.add(btnReset = new JButton("Reset"));
 
+        // Form Cards (CardLayout)
         cardLayout = new CardLayout();
         formCards = new JPanel(cardLayout);
 
+        // Grid form builder
         JPanel pPasien = new JPanel(new GridLayout(8, 2, 4, 4));
         txtPasienNik = createField(pPasien, "NIK:");
         txtPasienNama = createField(pPasien, "Nama:");
@@ -84,8 +89,7 @@ public class Main extends JFrame {
         txtIcuKapasitas = createField(pIcu, "Kapasitas Bed:");
         cbIcuLevel = createCombo(pIcu, "Level:", LevelPerawatan.values());
 
-        JPanel pJadwal = new JPanel(new GridLayout(7, 2, 4, 4));
-        txtIdJadwal = createField(pJadwal, "ID-Jadwal:");
+        JPanel pJadwal = new JPanel(new GridLayout(6, 2, 4, 4));
         cbJadwalHari = createCombo(pJadwal, "Hari:", Hari.values());
         cbJadwalMulai = createCombo(pJadwal, "Mulai:", Jam.values());
         cbJadwalSelesai = createCombo(pJadwal, "Selesai:", Jam.values());
@@ -93,17 +97,12 @@ public class Main extends JFrame {
         cbJadwalPasien = createCombo(pJadwal, "Pasien:", null);
         cbJadwalRuangan = createCombo(pJadwal, "Ruangan ICU:", null);
 
-        JPanel pRm = new JPanel(new GridLayout(3, 2, 4, 4));
-        txtRmId = createField(pRm, "ID Rekam Medis:");
-        txtRmDiagnosis = createField(pRm, "Diagnosis:");
-        cbRmJadwal = createCombo(pRm, "Acuan Jadwal:", null);
-
         formCards.add(pPasien, kats[0]);
-        formCards.add(new JLabel("Tidak ada input untuk data Dokter."), kats[1]);
+        formCards.add(new JLabel("Tidak ada input untuk data Dokter"), kats[1]);
         formCards.add(pIcu, kats[2]);
         formCards.add(pJadwal, kats[3]);
-        formCards.add(pRm, kats[4]);
 
+        // Panel Kiri (Form + Buttons)
         JPanel leftPanel = new JPanel(new BorderLayout(10, 10));
         leftPanel.setBorder(BorderFactory.createTitledBorder(" Form Input "));
         leftPanel.setPreferredSize(new Dimension(340, 0));
@@ -115,10 +114,12 @@ public class Main extends JFrame {
         btnPanel.add(btnHapus = new JButton("Hapus"));
         leftPanel.add(btnPanel, BorderLayout.SOUTH);
 
+        // JTable Utama (default index 0)
         mainTable = new JTable(models[0]);
         JScrollPane scrollTable = new JScrollPane(mainTable);
-        scrollTable.setBorder(BorderFactory.createTitledBorder(" Lembar Data Informasi "));
+        scrollTable.setBorder(BorderFactory.createTitledBorder(" Tabel Informasi "));
 
+        // Setup Main Panel
         JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         mainPanel.add(northPanel, BorderLayout.NORTH);
@@ -127,22 +128,27 @@ public class Main extends JFrame {
         add(mainPanel);
     }
 
+    // 3. Event Listeners
     private void initEvents() {
+        // Pindah Kategori Menu
         cbKategori.addActionListener(e -> {
             int idx = cbKategori.getSelectedIndex();
             cardLayout.show(formCards, kats[idx]);
             mainTable.setModel(models[idx]);
-            btnTambah.setVisible(idx != 1 && idx != 2);
+            btnTambah.setVisible(idx != 1 && idx != 2); // Sembunyikan tombol Simpan pada Dokter & ICU
             btnPanel.revalidate();
             btnPanel.repaint();
         });
 
+        // Klik Baris Tabel
         mainTable.getSelectionModel().addListSelectionListener(e -> handleTableSelection());
 
+        // Aksi CRUD
         btnTambah.addActionListener(e -> handleTambah());
         btnUpdate.addActionListener(e -> handleUpdate());
         btnHapus.addActionListener(e -> handleHapus());
 
+        // Aksi Pencarian Pasien
         btnCari.addActionListener(e -> {
             models[0].setRowCount(0);
             dataPasien.stream()
@@ -152,6 +158,7 @@ public class Main extends JFrame {
         btnReset.addActionListener(e -> syncUI());
     }
 
+    // Menampilkan data pada form ketika baris tabel dipilih
     private void handleTableSelection() {
         int row = mainTable.getSelectedRow();
         if (row < 0) {
@@ -175,32 +182,10 @@ public class Main extends JFrame {
                 txtIcuKapasitas.setText(mainTable.getValueAt(row, 2).toString());
                 cbIcuLevel.setSelectedItem(mainTable.getValueAt(row, 3));
             }
-            case 3 -> {
-                txtIdJadwal.setText(mainTable.getValueAt(row, 0).toString());
-                cbJadwalHari.setSelectedItem(mainTable.getValueAt(row, 1));
-                cbJadwalMulai.setSelectedItem(mainTable.getValueAt(row, 2));
-                cbJadwalSelesai.setSelectedItem(mainTable.getValueAt(row, 3));
-                cbJadwalDokter.setSelectedItem(mainTable.getValueAt(row, 4));
-                cbJadwalPasien.setSelectedItem(mainTable.getValueAt(row, 5));
-                cbJadwalRuangan.setSelectedItem(mainTable.getValueAt(row, 6));
-            }
-            case 4 -> {
-                txtRmId.setText(mainTable.getValueAt(row, 0).toString());
-                txtRmDiagnosis.setText(mainTable.getValueAt(row, 1).toString());
-                if (row >= 0 && row < dataRekamMedis.size()) {
-                    RekamMedis rm = dataRekamMedis.get(row);
-                    Jadwal j = rm.getJadwal();
-                    if (j != null) {
-                        String targetItem = j.getHari() + " | " + (j.getDokter() != null ? j.getDokter().getNamaLengkap() : "") + " -> " + (j.getPasien() != null ? j.getPasien().getNamaLengkap() : "");
-                        cbRmJadwal.setSelectedItem(targetItem);
-                    } else {
-                        cbRmJadwal.setSelectedIndex(-1);
-                    }
-                }
-            }
         }
     }
 
+    // MENAMBAH DATA BERDASARKAN INPUT FORM (Pasien, Jadwal) - Dokter & ICU tidak bisa ditambah melalui form, hanya update status/kapasitas/level saja  
     private void handleTambah() {
         try {
             switch (cbKategori.getSelectedIndex()) {
@@ -212,19 +197,17 @@ public class Main extends JFrame {
                             .filter(d -> d instanceof DokterSpesialis && d.getNamaLengkap().equals(selectedDoc))
                             .map(d -> (DokterSpesialis) d)
                             .findFirst().orElse(null);
-                    // String newId = "JDW-" + String.format("%03d", dataJadwal.size() + 1);
-                    dataJadwal.add(new Jadwal( txtIdJadwal.getText(), (Hari) cbJadwalHari.getSelectedItem(), (Jam) cbJadwalMulai.getSelectedItem(), (Jam) cbJadwalSelesai.getSelectedItem(), ds, dataPasien.get(cbJadwalPasien.getSelectedIndex()), dataICU.get(cbJadwalRuangan.getSelectedIndex())));
+                    dataJadwal.add(new Jadwal((Hari) cbJadwalHari.getSelectedItem(), (Jam) cbJadwalMulai.getSelectedItem(), (Jam) cbJadwalSelesai.getSelectedItem(), ds, dataPasien.get(cbJadwalPasien.getSelectedIndex()), dataICU.get(cbJadwalRuangan.getSelectedIndex())));
                 }
-                case 4 ->
-                    dataRekamMedis.add(new RekamMedis(txtRmId.getText(), txtRmDiagnosis.getText(), dataJadwal.get(cbRmJadwal.getSelectedIndex())));
             }
             syncUI();
             clearAllFields();
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Input tidak valid / data relasi kosong.");
+            JOptionPane.showMessageDialog(this, "Input tidak valid / data kosong");
         }
     }
 
+    //MENGUPDATE DATA BERDASARKAN KEY (NIK untuk Pasien, ID untuk ICU, dan Index untuk Jadwal)
     private void handleUpdate() {
         int row = mainTable.getSelectedRow();
         if (row < 0) {
@@ -250,49 +233,15 @@ public class Main extends JFrame {
                         icu.setKapasitasBed(Integer.parseInt(txtIcuKapasitas.getText()));
                         icu.setLevelPerawatan((LevelPerawatan) cbIcuLevel.getSelectedItem());
                     });
-                case 3 -> dataJadwal.stream().filter(jadwal -> jadwal.getIdJadwal().equals(key)).findFirst().ifPresent(jadwal -> {
-                        jadwal.setIdJadwal(txtIdJadwal.getText());
-                        jadwal.setHari((Hari) cbJadwalHari.getSelectedItem());
-                        jadwal.setJamMulai((Jam) cbJadwalMulai.getSelectedItem());
-                        jadwal.setJamSelesai((Jam) cbJadwalSelesai.getSelectedItem());
-                        // jadwal.setDokter((DokterSpesialis) cbJadwalDokter.getSelectedItem());
-                        // jadwal.setPasien((Pasien) cbJadwalPasien.getSelectedItem());
-                        // jadwal.setRuangan((Icu) cbJadwalRuangan.getSelectedItem());
-                        String selectedDoc = (String) cbJadwalDokter.getSelectedItem();
-                        DokterSpesialis ds = dataDokter.stream()
-                                .filter(d -> d instanceof DokterSpesialis && d.getNamaLengkap().equals(selectedDoc))
-                                .map(d -> (DokterSpesialis) d)
-                                .findFirst().orElse(null);
-                        jadwal.setDokter(ds);
-
-                        int pIdx = cbJadwalPasien.getSelectedIndex();
-                        if (pIdx >= 0 && pIdx < dataPasien.size()) {
-                            jadwal.setPasien(dataPasien.get(pIdx));
-                        }
-                        
-                        int rIdx = cbJadwalRuangan.getSelectedIndex();
-                        if (rIdx >= 0 && rIdx < dataICU.size()) {
-                            jadwal.setRuangan(dataICU.get(rIdx));
-                        }
-                    });
-                case 4 -> dataRekamMedis.stream().filter(rekamMedis -> rekamMedis.getId().equals(key)).findFirst().ifPresent(rekamMedis -> {
-                    rekamMedis.setId(txtRmId.getText());
-                    rekamMedis.setHasilDiagnosis(txtRmDiagnosis.getText());
-                    int selectedJadwalIndex = cbRmJadwal.getSelectedIndex();
-                    if (selectedJadwalIndex >= 0 && selectedJadwalIndex < dataJadwal.size()) {
-                        rekamMedis.setJadwal(dataJadwal.get(selectedJadwalIndex));
-                    } else {
-                        rekamMedis.setJadwal(null);
-                    }
-                });
             }
             syncUI();
             clearAllFields();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Gagal memperbarui data. Pastikan format benar.");
+            JOptionPane.showMessageDialog(this, "Gagal memperbarui data. Pastikan format benar");
         }
     }
-
+    
+    // MENGHAPUS DATA BERDASARKAN KEY (NIK untuk Pasien, ID untuk ICU, dan Index untuk Jadwal)
     private void handleHapus() {
         int row = mainTable.getSelectedRow();
         if (row < 0) {
@@ -307,13 +256,12 @@ public class Main extends JFrame {
                 dataICU.removeIf(icu -> icu.getIdRuangan().equals(key));
             case 3 ->
                 dataJadwal.remove(row);
-            case 4 ->
-                dataRekamMedis.remove(row);
         }
         syncUI();
         clearAllFields();
     }
 
+    // 4. Sinkronisasi Data JTable dan JComboBox secara Fungsional
     private void syncUI() {
         for (DefaultTableModel model : models) {
             model.setRowCount(0);
@@ -322,9 +270,9 @@ public class Main extends JFrame {
         dataPasien.forEach(p -> models[0].addRow(new Object[]{p.getNik(), p.getNamaLengkap(), p.getUsia(), p.getTempatLahir(), p.getTanggalLahir(), p.getJenisKelamin(), p.getNoTelp(), p.getPenyakit()}));
         dataDokter.forEach(d -> models[1].addRow(new Object[]{d.getNik(), d.getNamaLengkap(), d.getPeran(), d instanceof DokterSpesialis ds ? ds.getSpesialis() : "Lisensi: " + d.getNoLisensi()}));
         dataICU.forEach(i -> models[2].addRow(new Object[]{i.getIdRuangan(), i.getStatus(), i.getKapasitasBed(), i.getLevelPerawatan()}));
-        dataJadwal.forEach(j -> models[3].addRow(new Object[]{j.getIdJadwal(), j.getHari(), j.getJamMulai(), j.getJamSelesai(), j.getDokter() != null ? j.getDokter().getNamaLengkap() : "-", j.getPasien() != null ? j.getPasien().getNamaLengkap() : "-", j.getRuangan() != null ? j.getRuangan().getIdRuangan() : "-"}));
-        dataRekamMedis.forEach(rm -> models[4].addRow(new Object[]{rm.getId(), rm.getHasilDiagnosis(), rm.getJadwal() != null ? rm.getJadwal().getHari() + " [" + rm.getJadwal().getJamMulai() + "]" : "-"}));
+        dataJadwal.forEach(j -> models[3].addRow(new Object[]{j.getHari(), j.getJamMulai(), j.getJamSelesai(), j.getDokter() != null ? j.getDokter().getNamaLengkap() : "-", j.getPasien() != null ? j.getPasien().getNamaLengkap() : "-", j.getRuangan() != null ? j.getRuangan().getIdRuangan() : "-"}));
 
+        // Sinkronisasi dropdown JComboBox Relasi
         cbJadwalDokter.removeAllItems();
         dataDokter.stream().filter(d -> d instanceof DokterSpesialis).forEach(d -> cbJadwalDokter.addItem(d.getNamaLengkap()));
 
@@ -333,11 +281,9 @@ public class Main extends JFrame {
 
         cbJadwalRuangan.removeAllItems();
         dataICU.forEach(i -> cbJadwalRuangan.addItem(i.getIdRuangan()));
-
-        cbRmJadwal.removeAllItems();
-        dataJadwal.forEach(j -> cbRmJadwal.addItem(j.getHari() + " | " + (j.getDokter() != null ? j.getDokter().getNamaLengkap() : "") + " -> " + (j.getPasien() != null ? j.getPasien().getNamaLengkap() : "")));
     }
 
+    // METHOD MEMBUAT FIELD (FORM)
     private JTextField createField(JPanel p, String lbl) {
         p.add(new JLabel(lbl));
         JTextField tf = new JTextField();
@@ -345,6 +291,7 @@ public class Main extends JFrame {
         return tf;
     }
 
+    // METHOD MEMBUAT COMBOBOX (DROPDOWN)
     private <T> JComboBox<T> createCombo(JPanel p, String lbl, T[] items) {
         p.add(new JLabel(lbl));
         JComboBox<T> cb = items != null ? new JComboBox<>(items) : new JComboBox<>();
@@ -352,8 +299,9 @@ public class Main extends JFrame {
         return cb;
     }
 
+    // METHOD BERSIHKAN SEMUA FORM
     private void clearAllFields() {
-        JTextField[] fields = {txtPasienNik, txtPasienNama, txtPasienUsia, txtPasienTempat, txtPasienTanggal, txtPasienTelp, txtPasienPenyakit, txtIcuId, txtIcuKapasitas, txtRmId, txtRmDiagnosis};
+        JTextField[] fields = {txtPasienNik, txtPasienNama, txtPasienUsia, txtPasienTempat, txtPasienTanggal, txtPasienTelp, txtPasienPenyakit, txtIcuId, txtIcuKapasitas};
         for (JTextField f : fields) {
             if (f != null) {
                 f.setText("");
@@ -361,14 +309,13 @@ public class Main extends JFrame {
         }
     }
 
+    // DATA DUMMY
     private void initDummyData() {
         if (dataPasien.isEmpty()) {
             dataPasien.add(new Pasien("3171022804950003", "Rian Santoso", 31, "Jakarta", "28-04-1995", JenisKelamin.LAKI_LAKI, "081298345712", "Hipertensi"));
             dataPasien.add(new Pasien("3515041203990001", "Siti Aminah", 27, "Surabaya", "12-03-1999", JenisKelamin.PEREMPUAN, "081345678901", "Diabetes Melitus"));
             dataPasien.add(new Pasien("5201040508810002", "Budi Darmawan", 45, "Mataram", "05-08-1981", JenisKelamin.LAKI_LAKI, "087864123456", "Asma Kronis"));
             dataPasien.add(new Pasien("3273014509920004", "Dewi Lestari", 34, "Bandung", "15-09-1992", JenisKelamin.PEREMPUAN, "082112345678", "Demam Berdarah"));
-
-            dataDokter.add(new Dokter("3273052110940005", "dr. Indah Permatasari", 31, "Bandung", "21-10-1994", JenisKelamin.PEREMPUAN, "085711928344", "DK10293847561029"));
 
             DokterSpesialis ds1 = new DokterSpesialis("3171031407880002", "dr. Aris Munandar, Sp.PD", 38, "Yogyakarta", "14-07-1988", JenisKelamin.LAKI_LAKI, "082188456723", "DS30495867120394", "Spesialis Penyakit Dalam", 12, 450);
             DokterSpesialis ds2 = new DokterSpesialis("5201032211850001", "dr. Ahmad Fauzi, Sp.A", 40, "Mataram", "22-11-1985", JenisKelamin.LAKI_LAKI, "081907123456", "DS50695867120300", "Spesialis Anak", 15, 500);
@@ -383,21 +330,17 @@ public class Main extends JFrame {
             dataICU.add(new Icu("ICU-03", StatusRuangan.KOSONG, 8, LevelPerawatan.TINGGI));
             dataICU.add(new Icu("ICU-04", StatusRuangan.values().length > 1 ? StatusRuangan.values()[1] : StatusRuangan.KOSONG, 12, LevelPerawatan.values().length > 1 ? LevelPerawatan.values()[1] : LevelPerawatan.TINGGI));
 
-            Jadwal j1 = new Jadwal("JDW-001", Hari.SENIN, Jam.JAM_08_00, Jam.values().length > 2 ? Jam.values()[2] : Jam.JAM_12_00, ds1, dataPasien.get(0), dataICU.get(0));
-            Jadwal j2 = new Jadwal("JDW-002", Hari.values().length > 1 ? Hari.values()[1] : Hari.SENIN, Jam.JAM_08_00, Jam.values().length > 2 ? Jam.values()[2] : Jam.JAM_12_00, ds2, dataPasien.get(1), dataICU.get(1));
-            Jadwal j3 = new Jadwal("JDW-003", Hari.SENIN, Jam.values().length > 2 ? Jam.values()[2] : Jam.JAM_12_00, Jam.values()[Jam.values().length - 1], ds3, dataPasien.get(2), dataICU.get(2));
+            Jadwal j1 = new Jadwal(Hari.SENIN, Jam.JAM_08_00, Jam.values().length > 2 ? Jam.values()[2] : Jam.JAM_12_00, ds1, dataPasien.get(0), dataICU.get(0));
+            Jadwal j2 = new Jadwal(Hari.values().length > 1 ? Hari.values()[1] : Hari.SENIN, Jam.JAM_08_00, Jam.values().length > 2 ? Jam.values()[2] : Jam.JAM_12_00, ds2, dataPasien.get(1), dataICU.get(1));
+            Jadwal j3 = new Jadwal(Hari.SENIN, Jam.values().length > 2 ? Jam.values()[2] : Jam.JAM_12_00, Jam.values()[Jam.values().length - 1], ds3, dataPasien.get(2), dataICU.get(2));
 
             dataJadwal.add(j1);
             dataJadwal.add(j2);
             dataJadwal.add(j3);
-
-            dataRekamMedis.add(new RekamMedis("RM-001", "Hipertensi Essensial Stadium 1", j1));
-            dataRekamMedis.add(new RekamMedis("RM-002", "Gula Darah Puasa Tinggi", j2));
-            dataRekamMedis.add(new RekamMedis("RM-003", "Gejala Asma Bronkial Akut", j3));
         }
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new Main().setVisible(true));
+        new Main().setVisible(true);
     }
 }
