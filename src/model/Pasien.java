@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Pasien extends Individu {
 
@@ -12,13 +13,13 @@ public class Pasien extends Individu {
         this.penyakit = penyakit;
     }
 
-    // ArrayList dataPasien dipanggil dari Main
-    public void tambahPasien(ArrayList<Pasien> dataPasien, String nik, String namaLengkap, int usia, String tempatLahir,
-            String tanggalLahir, char jenisKelamin, String noTelp, String penyakit) {
+    public void tambahPasien(ArrayList<Pasien> dataPasien, String nik, String namaLengkap, int usia, String tempatLahir, String tanggalLahir, char jenisKelamin, String noTelp, String penyakit) {
         dataPasien.add(new Pasien(nik, namaLengkap, usia, tempatLahir, tanggalLahir, jenisKelamin, noTelp, penyakit));
     }
 
-    public static void cariPasienNik(ArrayList<Pasien> dataPasien, String pilihNik) {
+    public static void cariPasienNik(ArrayList<Pasien> dataPasien, Scanner sc) {
+        String pilihNik = sc.nextLine();
+        System.out.println("");
         boolean ditemukan = false;
         for (int i = 0; i < dataPasien.size(); i++) {
             if (dataPasien.get(i).getNik().startsWith(pilihNik)) {
@@ -30,23 +31,48 @@ public class Pasien extends Individu {
         if (!ditemukan) {
             System.out.println("Pencarian tidak ditemukan.");
         }
+        System.out.println("-----------------------------");
     }
 
-    public static void updatePasien(ArrayList<Pasien> dataPasien, String nik, String newNamaLengkap, int newUsia, String newTempatLahir, String newTanggalLahir, char newjenisKelamin, String newNoTelp, String newPenyakit){
-        for (int i = 0; i < dataPasien.size(); i++) {
-            if (dataPasien.get(i).getNik().equals(nik)) {
-                Pasien pasienUbah = dataPasien.get(i);
-                pasienUbah.setNamaLengkap(newNamaLengkap);
-                pasienUbah.setUsia(newUsia);
-                pasienUbah.setTempatLahir(newTempatLahir);
-                pasienUbah.setTanggalLahir(newTanggalLahir);
-                pasienUbah.setJenisKelamin(newjenisKelamin);
-                pasienUbah.setNoTelp(newNoTelp);
-                pasienUbah.setPenyakit(newPenyakit);
-                break; //keluar dari loop setelah pasien ditemukan dan dihapus 
-            }
-        }
-        
+    public static void updatePasien(ArrayList<Pasien> dataPasien, Scanner sc){
+        System.out.print("Masukkan NIK Pasien yang Ingin Diupdate Datanya: ");
+            String cariNik = sc.nextLine();
+            boolean ditemukan = false;
+            for (int i = 0; i < dataPasien.size(); i++) {
+                if (dataPasien.get(i).getNik().equals(cariNik)) {
+                    System.out.println("\tMasukkan Data Baru");
+                    System.out.print("Nama: ");
+                    String newNamaLengkap = sc.nextLine();
+                    System.out.print("Usia: ");
+                    int newUsia = sc.nextInt();
+                                  sc.nextLine();
+                    System.out.print("Tempat Lahir: ");
+                    String newTempatLahir = sc.nextLine();
+                    System.out.print("Tanggal Lahir: ");
+                    String newTanggalLahir = sc.nextLine();
+                    System.out.print("Jenis Kelamin: ");
+                    char newjenisKelamin = sc.nextLine().charAt(0);
+                    System.out.print("Nomor Telepon: ");
+                    String newNoTelp = sc.nextLine();
+                    System.out.print("Pengakit: ");
+                    String newPenyakit = sc.nextLine();
+
+                    Pasien pasienUbah = dataPasien.get(i);
+                    pasienUbah.setNamaLengkap(newNamaLengkap);
+                    pasienUbah.setUsia(newUsia);
+                    pasienUbah.setTempatLahir(newTempatLahir);
+                    pasienUbah.setTanggalLahir(newTanggalLahir);
+                    pasienUbah.setJenisKelamin(newjenisKelamin);
+                    pasienUbah.setNoTelp(newNoTelp);
+                    pasienUbah.setPenyakit(newPenyakit);
+
+                    System.out.println("Data pasien berhasil diperbarui...");
+                    }
+                }
+                if (!ditemukan) {
+                    System.out.println("Pasien tidak ditemukan.");
+                }
+                System.out.println("-----------------------------");
     }
 
     public void setPenyakit(String newPenyakit){
