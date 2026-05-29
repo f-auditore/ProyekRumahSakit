@@ -14,7 +14,6 @@ public class Jadwal {
     private Icu ruangan;
 
     public Jadwal(Hari hari, Jam jamMulai, Jam jamSelesai, DokterSpesialis dokter, Pasien pasien, Icu ruangan) {
-        this.idJadwal = idJadwal;
         this.hari = hari;
         this.jamMulai = jamMulai;
         this.jamSelesai = jamSelesai;
