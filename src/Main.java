@@ -355,10 +355,10 @@ public class Main extends JFrame {
             dataDokter.add(ds2);
             dataDokter.add(ds3);
 
-            dataICU.add(new Icu("ICU-01", StatusRuangan.KOSONG, 10, LevelPerawatan.TINGGI));
-            dataICU.add(new Icu("ICU-02", StatusRuangan.values().length > 1 ? StatusRuangan.values()[1] : StatusRuangan.KOSONG, 5, LevelPerawatan.values().length > 1 ? LevelPerawatan.values()[1] : LevelPerawatan.TINGGI));
+            dataICU.add(new Icu("ICU-01", StatusRuangan.KOSONG, 10, LevelPerawatan.INTENSIF));
+            dataICU.add(new Icu("ICU-02", StatusRuangan.KOSONG, 10, LevelPerawatan.INTENSIF));
             dataICU.add(new Icu("ICU-03", StatusRuangan.KOSONG, 8, LevelPerawatan.TINGGI));
-            dataICU.add(new Icu("ICU-04", StatusRuangan.values().length > 1 ? StatusRuangan.values()[1] : StatusRuangan.KOSONG, 12, LevelPerawatan.values().length > 1 ? LevelPerawatan.values()[1] : LevelPerawatan.TINGGI));
+            dataICU.add(new Icu("ICU-04", StatusRuangan.KOSONG, 10, LevelPerawatan.INTENSIF));
 
             Jadwal j1 = new Jadwal("JADWAL-01", Hari.SENIN, Jam.JAM_08_00, Jam.values().length > 2 ? Jam.values()[2] : Jam.JAM_12_00, ds1, dataPasien.get(0), dataICU.get(0));
             Jadwal j2 = new Jadwal("JADWAL-02", Hari.values().length > 1 ? Hari.values()[1] : Hari.SENIN, Jam.JAM_08_00, Jam.values().length > 2 ? Jam.values()[2] : Jam.JAM_12_00, ds2, dataPasien.get(1), dataICU.get(1));
