@@ -31,6 +31,7 @@ public class Main extends JFrame {
     private JComboBox<Hari> cbJadwalHari;
     private JComboBox<Jam> cbJadwalMulai, cbJadwalSelesai;
     private JComboBox<String> cbJadwalDokter, cbJadwalPasien, cbJadwalRuangan;
+    private JTextField txtIdJadwal;
 
     private final String[] kats = {"Manajemen Pasien", "Daftar Dokter (View Only)", "Ruangan ICU", "Jadwal Kontrol"};
 
@@ -53,7 +54,7 @@ public class Main extends JFrame {
             new DefaultTableModel(new String[]{"NIK", "Nama", "Usia", "Tempat", "Tanggal", "Jenis Kelamin", "Telepon", "Penyakit"}, 0),
             new DefaultTableModel(new String[]{"NIK", "Nama Dokter", "Peran/Pangkat", "Detail Spesialisasi"}, 0),
             new DefaultTableModel(new String[]{"ID Ruangan", "Status", "Kapasitas Bed", "Level Perawatan"}, 0),
-            new DefaultTableModel(new String[]{"Hari", "Mulai", "Selesai", "Dokter", "Pasien", "Ruangan"}, 0)
+            new DefaultTableModel(new String[]{"ID Jadwal","Hari", "Mulai", "Selesai", "Dokter", "Pasien", "Ruangan"}, 0)
         };
     }
 
@@ -89,7 +90,8 @@ public class Main extends JFrame {
         txtIcuKapasitas = createField(pIcu, "Kapasitas Bed:");
         cbIcuLevel = createCombo(pIcu, "Level:", LevelPerawatan.values());
 
-        JPanel pJadwal = new JPanel(new GridLayout(6, 2, 4, 4));
+        JPanel pJadwal = new JPanel(new GridLayout(7, 2, 4, 4));
+        txtIdJadwal = createField(pJadwal, "ID Jadwal:");
         cbJadwalHari = createCombo(pJadwal, "Hari:", Hari.values());
         cbJadwalMulai = createCombo(pJadwal, "Mulai:", Jam.values());
         cbJadwalSelesai = createCombo(pJadwal, "Selesai:", Jam.values());
@@ -182,6 +184,15 @@ public class Main extends JFrame {
                 txtIcuKapasitas.setText(mainTable.getValueAt(row, 2).toString());
                 cbIcuLevel.setSelectedItem(mainTable.getValueAt(row, 3));
             }
+            case 3 -> {
+                txtIdJadwal.setText(mainTable.getValueAt(row, 0).toString());
+                cbJadwalHari.setSelectedItem(mainTable.getValueAt(row, 1));
+                cbJadwalMulai.setSelectedItem(mainTable.getValueAt(row, 2));
+                cbJadwalSelesai.setSelectedItem(mainTable.getValueAt(row, 3));
+                cbJadwalDokter.setSelectedItem(mainTable.getValueAt(row, 4));
+                cbJadwalPasien.setSelectedItem(mainTable.getValueAt(row, 5));
+                cbJadwalRuangan.setSelectedItem(mainTable.getValueAt(row, 6));
+            }
         }
     }
 
@@ -197,7 +208,7 @@ public class Main extends JFrame {
                             .filter(d -> d instanceof DokterSpesialis && d.getNamaLengkap().equals(selectedDoc))
                             .map(d -> (DokterSpesialis) d)
                             .findFirst().orElse(null);
-                    dataJadwal.add(new Jadwal((Hari) cbJadwalHari.getSelectedItem(), (Jam) cbJadwalMulai.getSelectedItem(), (Jam) cbJadwalSelesai.getSelectedItem(), ds, dataPasien.get(cbJadwalPasien.getSelectedIndex()), dataICU.get(cbJadwalRuangan.getSelectedIndex())));
+                    dataJadwal.add(new Jadwal(txtIdJadwal.getText(), (Hari) cbJadwalHari.getSelectedItem(), (Jam) cbJadwalMulai.getSelectedItem(), (Jam) cbJadwalSelesai.getSelectedItem(), ds, dataPasien.get(cbJadwalPasien.getSelectedIndex()), dataICU.get(cbJadwalRuangan.getSelectedIndex())));
                 }
             }
             syncUI();
@@ -229,9 +240,28 @@ public class Main extends JFrame {
                     });
                 case 2 ->
                     dataICU.stream().filter(icu -> icu.getIdRuangan().equals(key)).findFirst().ifPresent(icu -> {
+                        icu.setIdRuangan(txtIcuId.getText());
                         icu.setStatus((StatusRuangan) cbIcuStatus.getSelectedItem());
                         icu.setKapasitasBed(Integer.parseInt(txtIcuKapasitas.getText()));
                         icu.setLevelPerawatan((LevelPerawatan) cbIcuLevel.getSelectedItem());
+                    });
+
+                case 3 ->
+                    dataJadwal.stream().filter(j -> j.getIdJadwal().equals(key)).findFirst().ifPresent(j -> {
+                        j.setIdJadwal(txtIdJadwal.getText());
+                        j.setHari((Hari) cbJadwalHari.getSelectedItem());
+                        j.setJamMulai((Jam) cbJadwalMulai.getSelectedItem());
+                        j.setJamSelesai((Jam) cbJadwalSelesai.getSelectedItem());
+
+                        String selectedDoc = (String) cbJadwalDokter.getSelectedItem();
+                        DokterSpesialis ds = dataDokter.stream()
+                                .filter(d -> d instanceof DokterSpesialis && d.getNamaLengkap().equals(selectedDoc))
+                                .map(d -> (DokterSpesialis) d)
+                                .findFirst().orElse(null);
+                        j.setDokter(ds);
+
+                        j.setPasien(dataPasien.get(cbJadwalPasien.getSelectedIndex()));
+                        j.setRuangan(dataICU.get(cbJadwalRuangan.getSelectedIndex()));
                     });
             }
             syncUI();
@@ -270,7 +300,7 @@ public class Main extends JFrame {
         dataPasien.forEach(p -> models[0].addRow(new Object[]{p.getNik(), p.getNamaLengkap(), p.getUsia(), p.getTempatLahir(), p.getTanggalLahir(), p.getJenisKelamin(), p.getNoTelp(), p.getPenyakit()}));
         dataDokter.forEach(d -> models[1].addRow(new Object[]{d.getNik(), d.getNamaLengkap(), d.getPeran(), d instanceof DokterSpesialis ds ? ds.getSpesialis() : "Lisensi: " + d.getNoLisensi()}));
         dataICU.forEach(i -> models[2].addRow(new Object[]{i.getIdRuangan(), i.getStatus(), i.getKapasitasBed(), i.getLevelPerawatan()}));
-        dataJadwal.forEach(j -> models[3].addRow(new Object[]{j.getHari(), j.getJamMulai(), j.getJamSelesai(), j.getDokter() != null ? j.getDokter().getNamaLengkap() : "-", j.getPasien() != null ? j.getPasien().getNamaLengkap() : "-", j.getRuangan() != null ? j.getRuangan().getIdRuangan() : "-"}));
+        dataJadwal.forEach(j -> models[3].addRow(new Object[]{j.getIdJadwal() ,j.getHari(), j.getJamMulai(), j.getJamSelesai(), j.getDokter() != null ? j.getDokter().getNamaLengkap() : "-", j.getPasien() != null ? j.getPasien().getNamaLengkap() : "-", j.getRuangan() != null ? j.getRuangan().getIdRuangan() : "-"}));
 
         // Sinkronisasi dropdown JComboBox Relasi
         cbJadwalDokter.removeAllItems();
@@ -330,9 +360,9 @@ public class Main extends JFrame {
             dataICU.add(new Icu("ICU-03", StatusRuangan.KOSONG, 8, LevelPerawatan.TINGGI));
             dataICU.add(new Icu("ICU-04", StatusRuangan.values().length > 1 ? StatusRuangan.values()[1] : StatusRuangan.KOSONG, 12, LevelPerawatan.values().length > 1 ? LevelPerawatan.values()[1] : LevelPerawatan.TINGGI));
 
-            Jadwal j1 = new Jadwal(Hari.SENIN, Jam.JAM_08_00, Jam.values().length > 2 ? Jam.values()[2] : Jam.JAM_12_00, ds1, dataPasien.get(0), dataICU.get(0));
-            Jadwal j2 = new Jadwal(Hari.values().length > 1 ? Hari.values()[1] : Hari.SENIN, Jam.JAM_08_00, Jam.values().length > 2 ? Jam.values()[2] : Jam.JAM_12_00, ds2, dataPasien.get(1), dataICU.get(1));
-            Jadwal j3 = new Jadwal(Hari.SENIN, Jam.values().length > 2 ? Jam.values()[2] : Jam.JAM_12_00, Jam.values()[Jam.values().length - 1], ds3, dataPasien.get(2), dataICU.get(2));
+            Jadwal j1 = new Jadwal("JADWAL-01", Hari.SENIN, Jam.JAM_08_00, Jam.values().length > 2 ? Jam.values()[2] : Jam.JAM_12_00, ds1, dataPasien.get(0), dataICU.get(0));
+            Jadwal j2 = new Jadwal("JADWAL-02", Hari.values().length > 1 ? Hari.values()[1] : Hari.SENIN, Jam.JAM_08_00, Jam.values().length > 2 ? Jam.values()[2] : Jam.JAM_12_00, ds2, dataPasien.get(1), dataICU.get(1));
+            Jadwal j3 = new Jadwal("JADWAL-03", Hari.SENIN, Jam.values().length > 2 ? Jam.values()[2] : Jam.JAM_12_00, Jam.values()[Jam.values().length - 1], ds3, dataPasien.get(2), dataICU.get(2));
 
             dataJadwal.add(j1);
             dataJadwal.add(j2);

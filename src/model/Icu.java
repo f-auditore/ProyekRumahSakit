@@ -26,7 +26,7 @@ public class Icu extends Ruangan {
         return levelPerawatan;
     }
 
-    public void setLevelPerawatan(LevelPerawatan par) {
+    public void setLevelPerawatan(LevelPerawatan levelPerawatan) {
         this.levelPerawatan = levelPerawatan;
     }
 
