@@ -8,12 +8,31 @@ public class Pasien extends Individu {
     protected String penyakit;
 
     public Pasien(String nik, String namaLengkap, int usia, String tempatLahir, String tanggalLahir, char jenisKelamin,
-            String noTelp, String penyakit) {
+        String noTelp, String penyakit) {
         super(nik, namaLengkap, usia, tempatLahir, tanggalLahir, jenisKelamin, noTelp);
         this.penyakit = penyakit;
     }
 
-    public void tambahPasien(ArrayList<Pasien> dataPasien, String nik, String namaLengkap, int usia, String tempatLahir, String tanggalLahir, char jenisKelamin, String noTelp, String penyakit) {
+    public static void tambahPasien(ArrayList<Pasien> dataPasien, Scanner sc, String nik, String namaLengkap, int usia, String tempatLahir, String tanggalLahir, char jenisKelamin, String noTelp, String penyakit) {
+        System.out.println("\tMasukkan Data Pasien");
+        System.out.print("NIK: ");
+        nik = sc.nextLine();
+        System.out.print("Nama: ");
+        namaLengkap = sc.nextLine();
+        System.out.print("Usia: ");
+        usia = sc.nextInt();
+               sc.nextLine();
+        System.out.print("Tempat Lahir: ");
+        tempatLahir = sc.nextLine();
+        System.out.print("Tanggal Lahir: ");
+        tanggalLahir = sc.nextLine();
+        System.out.print("Jenis Kelamin: ");
+        jenisKelamin = sc.nextLine().charAt(0);
+        System.out.print("Nomor Telepon: ");
+        noTelp = sc.nextLine();
+        System.out.print("Penyakit: ");
+        penyakit = sc.nextLine();
+
         dataPasien.add(new Pasien(nik, namaLengkap, usia, tempatLahir, tanggalLahir, jenisKelamin, noTelp, penyakit));
     }
 
@@ -41,6 +60,8 @@ public class Pasien extends Individu {
             for (int i = 0; i < dataPasien.size(); i++) {
                 if (dataPasien.get(i).getNik().equals(cariNik)) {
                     System.out.println("\tMasukkan Data Baru");
+                    System.out.print("NIK: ");
+                    String newNik = sc.nextLine();
                     System.out.print("Nama: ");
                     String newNamaLengkap = sc.nextLine();
                     System.out.print("Usia: ");
@@ -51,21 +72,23 @@ public class Pasien extends Individu {
                     System.out.print("Tanggal Lahir: ");
                     String newTanggalLahir = sc.nextLine();
                     System.out.print("Jenis Kelamin: ");
-                    char newjenisKelamin = sc.nextLine().charAt(0);
+                    char newJenisKelamin = sc.nextLine().charAt(0);
                     System.out.print("Nomor Telepon: ");
                     String newNoTelp = sc.nextLine();
                     System.out.print("Pengakit: ");
                     String newPenyakit = sc.nextLine();
 
                     Pasien pasienUbah = dataPasien.get(i);
+                    pasienUbah.setNik(newNik);
                     pasienUbah.setNamaLengkap(newNamaLengkap);
                     pasienUbah.setUsia(newUsia);
                     pasienUbah.setTempatLahir(newTempatLahir);
                     pasienUbah.setTanggalLahir(newTanggalLahir);
-                    pasienUbah.setJenisKelamin(newjenisKelamin);
+                    pasienUbah.setJenisKelamin(newJenisKelamin);
                     pasienUbah.setNoTelp(newNoTelp);
                     pasienUbah.setPenyakit(newPenyakit);
-
+                    
+                    ditemukan = true;
                     System.out.println("Data pasien berhasil diperbarui...");
                     }
                 }

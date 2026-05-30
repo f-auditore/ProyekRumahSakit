@@ -23,17 +23,18 @@ public class Main {
         
         while (true) { 
             try {
-                System.out.println("=== SISTEM MANAJEMEN DATA PASIEN === \n1. Lihat Daftar Pasien \n2. Cari Pasien Berdasarkan NIK \n3. Update data pasien \n4. Hapus Data Pasien \n5. Lihat Rekam Medis \n6. Pilih Ruangan \n0. Keluar");
+                System.out.println("=== SISTEM MANAJEMEN DATA PASIEN === \n1. Lihat Daftar Pasien \n2. Cari Pasien Berdasarkan NIK \n3. Update data pasien \n4. Hapus Data Pasien \n5. Tambah Pasien \n6. Lihat Rekam Medis \n7. Pilih Ruangan \n0. Keluar");
                 System.out.print("Pilihan: ");
                 int pilihan = sc.nextInt();
                 sc.nextLine();
                 switch (pilihan) {
                     case 1 -> daftarPasien();
-                    case 2 -> cariPasienNik();
+                    case 2 -> cariPasienNik(sc);
                     case 3 -> updatePasien(sc);
                     case 4 -> hapusPasien(sc);
-                    case 5 -> lihatRekamMedis();
-                    case 6 -> pilihRuangan();
+                    case 5 -> tambahPasien(sc);
+                    case 6 -> lihatRekamMedis();
+                    case 7 -> pilihRuangan();
                     case 0 -> {
                         System.out.println("Terima Kasih!");
                         System.exit(0);
@@ -74,12 +75,10 @@ public class Main {
         System.out.println("-----------------------------");
     }
     //2
-    public static void cariPasienNik(){
+    public static void cariPasienNik(Scanner sc){
         System.out.println("\n============= Mencari Pasien Berdasarkan NIK =============");
         System.out.print("\tMasukkan awalan NIK: ");
-        try(Scanner sc = new Scanner (System.in)){
-            Pasien.cariPasienNik(dataPasien, sc);
-        }
+        Pasien.cariPasienNik(dataPasien, sc);
     }
 
     //3
@@ -106,6 +105,12 @@ public class Main {
     }
 
     //5
+    public static void tambahPasien(Scanner sc){
+
+    }
+
+
+    //6
     public static void lihatRekamMedis() {
         if (dataRekamMedis.isEmpty() || (dataRekamMedis.size() == 1 && dataRekamMedis.get(0).getId() == null)) {
             System.out.println("Belum ada data rekam medis yang tersedia.");
