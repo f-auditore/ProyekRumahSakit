@@ -84,7 +84,7 @@ public class Main {
 
     //3
     public static void updatePasien(Scanner sc){
-        System.out.println("\\n============= Memperbarui Data Pasien =============");
+        System.out.println("\n============= Memperbarui Data Pasien =============");
         System.out.print("Masukkan NIK Pasien yang Ingin Diupdate Datanya: ");
         Pasien.updatePasien(dataPasien, sc);
         System.out.println("-----------------------------");

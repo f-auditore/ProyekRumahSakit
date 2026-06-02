@@ -13,6 +13,17 @@ public class Pasien extends Individu {
         this.penyakit = penyakit;
     }
 
+    public void setPenyakit(String newPenyakit){
+        if (newPenyakit != null && !newPenyakit.trim().isEmpty()) {
+            this.penyakit = newPenyakit;
+        }
+    }
+
+    public String getPenyakit() {
+        return penyakit;
+    }
+
+
     public static void tambahPasien(ArrayList<Pasien> dataPasien, Scanner sc) {
         System.out.print("NIK: ");
         String nik = sc.nextLine();
@@ -56,24 +67,84 @@ public class Pasien extends Individu {
             boolean ditemukan = false;
             for (int i = 0; i < dataPasien.size(); i++) {
                 if (dataPasien.get(i).getNik().equals(cariNik)) {
+
                     System.out.println("\tMasukkan Data Baru");
-                    System.out.print("NIK: ");
-                    String newNik = sc.nextLine();
-                    System.out.print("Nama: ");
-                    String newNamaLengkap = sc.nextLine();
-                    System.out.print("Usia: ");
-                    int newUsia = sc.nextInt();
-                                  sc.nextLine();
-                    System.out.print("Tempat Lahir: ");
-                    String newTempatLahir = sc.nextLine();
-                    System.out.print("Tanggal Lahir: ");
-                    String newTanggalLahir = sc.nextLine();
-                    System.out.print("Jenis Kelamin: ");
-                    char newJenisKelamin = sc.nextLine().charAt(0);
-                    System.out.print("Nomor Telepon: ");
-                    String newNoTelp = sc.nextLine();
-                    System.out.print("Pengakit: ");
-                    String newPenyakit = sc.nextLine();
+                    String newNik;
+                    String newNamaLengkap;
+                    int newUsia;
+                    String newTempatLahir;
+                    String newTanggalLahir;
+                    char newJenisKelamin;
+                    String newNoTelp;
+                    String newPenyakit;
+                    
+                    
+                    do {
+                        System.out.print("NIK: ");
+                        newNik = sc.nextLine(); 
+                        if (!(newNik.length() == 16 && newNik.matches("\\d+"))) {
+                            System.out.println("Invalid: NIK harus 16 digit angka.");
+                        }                           
+                    } while (!(newNik.length() == 16 && newNik.matches("\\d+")));
+
+                    do {
+                        System.out.print("Nama: "); 
+                        newNamaLengkap = sc.nextLine();
+                        if (!(newNamaLengkap.matches("[a-zA-Z\\s]+"))) {
+                            System.out.println("Invalid: sesuaikan format.");
+                        }
+                    } while (!(newNamaLengkap.matches("[a-zA-Z\\s]+") ));
+
+                    do {
+                        System.out.print("Usia (tahun): ");
+                        newUsia = sc.nextInt();
+                        sc.nextLine();
+                        if (!(newUsia > 0 && newUsia < 150)) {
+                            System.out.println("Invalid: usia hanya antara 1-149 tahun");
+                        } 
+                    } while (!(newUsia > 0 && newUsia < 150));
+                    
+                    do { 
+                        System.out.print("Tempat Lahir: ");
+                        newTempatLahir = sc.nextLine();
+                        if (!(newTempatLahir != null && !newTempatLahir.trim().isEmpty())) {
+                            System.out.println("Tempat lahir tidak boleh kosong");
+                        }
+                    } while (!(newTempatLahir != null && !newTempatLahir.trim().isEmpty()));
+                    
+                    do { 
+                        System.out.print("Tanggal Lahir (DD-MM-YYYY): ");
+                        newTanggalLahir = sc.nextLine();
+                        if (!(newTanggalLahir.matches("\\d{2}-\\d{2}-\\d{4}"))) {
+                            System.out.println("Invalid: sesuaikan format");
+                        }
+                    } while (!(newTanggalLahir.matches("\\d{2}-\\d{2}-\\d{4}")));
+
+                    do { 
+                        System.out.print("Jenis Kelamin (L/P): ");
+                        newJenisKelamin = sc.nextLine().toUpperCase().charAt(0);
+
+                        if (!(newJenisKelamin == 'L' || newJenisKelamin == 'P')) {
+                            System.out.println("Invalid: sesuaikan format");
+                        }
+                    } while (!(newJenisKelamin == 'L' || newJenisKelamin == 'P'));
+                    
+                    do {
+                        System.out.print("Nomor Telepon: ");
+                        newNoTelp = sc.nextLine();
+                        if (!(newNoTelp.matches("\\d{10,12}"))) {
+                            System.out.println("Invalid: digit minimal 10, max 12");
+                        } 
+                    } while (!(newNoTelp.matches("\\d{10,12}")));
+
+                    do {
+                        System.out.print("Penyakit: ");
+                        newPenyakit = sc.nextLine();
+                        if (!(newPenyakit != null && !newPenyakit.trim().isEmpty())) {
+                            System.out.println("Penyakit tidak boleh kosong");
+                        } 
+                    } while (!(newPenyakit != null && !newPenyakit.trim().isEmpty()));
+
 
                     Pasien pasienUbah = dataPasien.get(i);
                     pasienUbah.setNik(newNik);
@@ -92,14 +163,6 @@ public class Pasien extends Individu {
                 if (!ditemukan) {
                     System.out.println("Pasien tidak ditemukan.");
                 }
-    }
-
-    public void setPenyakit(String newPenyakit){
-        this.penyakit = newPenyakit;
-    }
-
-    public String getPenyakit() {
-        return penyakit;
     }
 
     public static void hapusPasien(ArrayList<Pasien> dataPasien, Scanner sc) {

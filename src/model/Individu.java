@@ -27,17 +27,24 @@ public abstract class Individu {
         return namaLengkap;
     }
 
-    public void setNamaLengkap(String newNamaLengkap){
-        if (newNamaLengkap != null && !newNamaLengkap.trim().isEmpty()) {
-            this.namaLengkap = newNamaLengkap;
-        }
-    }
-
     public void setNik(String newNik){
         if (newNik.length() == 16 && newNik.matches("\\d+")) { 
             this.nik = newNik;
         }
     }
+
+    public void setNamaLengkap(String newNamaLengkap){
+        if (newNamaLengkap.matches("[a-zA-Z\\s]+")) {
+            this.namaLengkap = newNamaLengkap;
+        }
+    }
+
+    public void setUsia(int newUsia){
+        if(newUsia > 0 && newUsia < 150){
+            this.usia = newUsia;
+        }
+    }
+
     public void setTempatLahir(String newTempatLahir){
         if (newTempatLahir != null && !newTempatLahir.trim().isEmpty()) {
             this.tempatLahir = newTempatLahir;
@@ -49,11 +56,8 @@ public abstract class Individu {
         }
     }
     public void setJenisKelamin(char newJenisKelamin){
-        this.jenisKelamin = newJenisKelamin;
-    }
-    public void setUsia(int newUsia){
-        if(newUsia > 0 && newUsia < 150){
-            this.usia = newUsia;
+        if (newJenisKelamin == 'L' || newJenisKelamin == 'P') {
+            this.jenisKelamin = newJenisKelamin;
         }
     }
 
