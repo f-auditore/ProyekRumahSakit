@@ -13,25 +13,24 @@ public class Pasien extends Individu {
         this.penyakit = penyakit;
     }
 
-    public static void tambahPasien(ArrayList<Pasien> dataPasien, Scanner sc, String nik, String namaLengkap, int usia, String tempatLahir, String tanggalLahir, char jenisKelamin, String noTelp, String penyakit) {
-        System.out.println("\tMasukkan Data Pasien");
+    public static void tambahPasien(ArrayList<Pasien> dataPasien, Scanner sc) {
         System.out.print("NIK: ");
-        nik = sc.nextLine();
+        String nik = sc.nextLine();
         System.out.print("Nama: ");
-        namaLengkap = sc.nextLine();
+        String namaLengkap = sc.nextLine();
         System.out.print("Usia: ");
-        usia = sc.nextInt();
+        int usia = sc.nextInt();
                sc.nextLine();
         System.out.print("Tempat Lahir: ");
-        tempatLahir = sc.nextLine();
+        String tempatLahir = sc.nextLine();
         System.out.print("Tanggal Lahir: ");
-        tanggalLahir = sc.nextLine();
+        String tanggalLahir = sc.nextLine();
         System.out.print("Jenis Kelamin: ");
-        jenisKelamin = sc.nextLine().charAt(0);
+        char jenisKelamin = sc.nextLine().charAt(0);
         System.out.print("Nomor Telepon: ");
-        noTelp = sc.nextLine();
+        String noTelp = sc.nextLine();
         System.out.print("Penyakit: ");
-        penyakit = sc.nextLine();
+        String penyakit = sc.nextLine();
 
         dataPasien.add(new Pasien(nik, namaLengkap, usia, tempatLahir, tanggalLahir, jenisKelamin, noTelp, penyakit));
     }
@@ -50,11 +49,9 @@ public class Pasien extends Individu {
         if (!ditemukan) {
             System.out.println("Pencarian tidak ditemukan.");
         }
-        System.out.println("-----------------------------");
     }
 
     public static void updatePasien(ArrayList<Pasien> dataPasien, Scanner sc){
-        System.out.print("Masukkan NIK Pasien yang Ingin Diupdate Datanya: ");
             String cariNik = sc.nextLine();
             boolean ditemukan = false;
             for (int i = 0; i < dataPasien.size(); i++) {
@@ -95,7 +92,6 @@ public class Pasien extends Individu {
                 if (!ditemukan) {
                     System.out.println("Pasien tidak ditemukan.");
                 }
-                System.out.println("-----------------------------");
     }
 
     public void setPenyakit(String newPenyakit){
@@ -106,12 +102,19 @@ public class Pasien extends Individu {
         return penyakit;
     }
 
-    public static void hapusPasien(ArrayList<Pasien> dataPasien, String nik) {
+    public static void hapusPasien(ArrayList<Pasien> dataPasien, Scanner sc) {
+        String pilihnik = sc.nextLine();
+        boolean ditemukan = false;
         for (int i = 0; i < dataPasien.size(); i++) {
-            if (dataPasien.get(i).getNik().equals(nik)) {
+            if (dataPasien.get(i).getNik().equals(pilihnik)) {
                 dataPasien.remove(i);
+                System.out.println("Data pasien berhasil dihapus...");
+                ditemukan = true;
                 break;
             }
+        }
+        if (!ditemukan){
+            System.out.println("Pasien tidak ditemukan");
         }
     }
 
