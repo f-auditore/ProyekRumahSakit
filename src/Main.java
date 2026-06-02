@@ -79,36 +79,33 @@ public class Main {
         System.out.println("\n============= Mencari Pasien Berdasarkan NIK =============");
         System.out.print("\tMasukkan awalan NIK: ");
         Pasien.cariPasienNik(dataPasien, sc);
+        System.out.println("-----------------------------");
     }
 
     //3
     public static void updatePasien(Scanner sc){
+        System.out.println("\\n============= Memperbarui Data Pasien =============");
+        System.out.print("Masukkan NIK Pasien yang Ingin Diupdate Datanya: ");
         Pasien.updatePasien(dataPasien, sc);
+        System.out.println("-----------------------------");
     }
 
     //4
     public static void hapusPasien(Scanner sc){
-        System.out.print("Masukkan NIK Pasien yang Ingin Diupdate Datanya: ");
-        String nik = sc.nextLine();
-        boolean ditemukan = false;
-        for (int i = 0; i < dataPasien.size(); i++) {
-            if (dataPasien.get(i).getNik().equals(nik)) {
-                ditemukan = true;
-                break;
-            }
-        }
-        if (ditemukan){
-            Pasien.hapusPasien(dataPasien, nik);
-        }
-        System.out.println("Data pasien berhasil dihapus...");
+        System.out.println("\\n============= Menghapus Data Pasien =============");
+        System.out.print("Masukkan NIK Pasien yang Ingin Dihapus Datanya: ");
+        Pasien.hapusPasien(dataPasien, sc);
         System.out.println("-----------------------------");
+        
     }
 
     //5
-    public static void tambahPasien(Scanner sc){
-
+    public static void tambahPasien(Scanner sc) {
+        System.out.println("\\n============= Menambah Data Pasien Baru =============");
+        System.out.println("\tMasukkan Data Pasien");
+        Pasien.tambahPasien(dataPasien, sc);
+        System.out.println("-----------------------------");
     }
-
 
     //6
     public static void lihatRekamMedis() {
