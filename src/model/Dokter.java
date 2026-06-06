@@ -41,4 +41,4 @@ public class Dokter extends Individu {
     public void tampilkanInfo(){
         System.out.println("NIK\t: " + nik + "\nNama\t: " + namaLengkap + "\nUsia\t: " + usia + "\nTempat Lahir\t: " + tempatLahir + "\nTanggal Lahir\t" + tanggalLahir +  "\nJenis Kelamin\t: " + jenisKelamin);
     }
-}
+} 

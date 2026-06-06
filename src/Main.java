@@ -68,16 +68,22 @@ public class Main {
     // 1
     public static void daftarPasien() {
         System.out.println("\n============= Data Pasien =============");
-        for (int i = 0; i < dataPasien.size(); i++) {
+        if (dataPasien.isEmpty()) {
+            System.out.println("Belum ada data pasien.");
+        } else {
+            for (int i = 0; i < dataPasien.size(); i++) {
             System.out.println("\t### Pasien " + (i + 1) + " ###");
             dataPasien.get(i).tampilkanInfo();
+            }   
         }
+        
+        
         System.out.println("-----------------------------");
     }
     //2
     public static void cariPasienNik(Scanner sc){
         System.out.println("\n============= Mencari Pasien Berdasarkan NIK =============");
-        System.out.print("\tMasukkan awalan NIK: ");
+        System.out.print("\tMasukkan NIK: "); //bisa awalan nik
         Pasien.cariPasienNik(dataPasien, sc);
         System.out.println("-----------------------------");
     }
@@ -92,7 +98,7 @@ public class Main {
 
     //4
     public static void hapusPasien(Scanner sc){
-        System.out.println("\\n============= Menghapus Data Pasien =============");
+        System.out.println("\n============= Menghapus Data Pasien =============");
         System.out.print("Masukkan NIK Pasien yang Ingin Dihapus Datanya: ");
         Pasien.hapusPasien(dataPasien, sc);
         System.out.println("-----------------------------");
@@ -101,7 +107,7 @@ public class Main {
 
     //5
     public static void tambahPasien(Scanner sc) {
-        System.out.println("\\n============= Menambah Data Pasien Baru =============");
+        System.out.println("\n============= Menambah Data Pasien Baru =============");
         System.out.println("\tMasukkan Data Pasien");
         Pasien.tambahPasien(dataPasien, sc);
         System.out.println("-----------------------------");
