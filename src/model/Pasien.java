@@ -14,9 +14,7 @@ public class Pasien extends Individu {
     }
 
     public void setPenyakit(String newPenyakit){
-        if (newPenyakit != null && !newPenyakit.trim().isEmpty()) {
             this.penyakit = newPenyakit;
-        }
     }
 
     public String getPenyakit() {
@@ -67,76 +65,20 @@ public class Pasien extends Individu {
             boolean ditemukan = false;
             for (int i = 0; i < dataPasien.size(); i++) {
                 if (dataPasien.get(i).getNik().equals(cariNik)) {
+                    String konfirmasi;
+                    do { 
+                        System.out.print("Update pasien atas nama " + dataPasien.get(i).getNamaLengkap() + "? (Y/N): ");
+                        konfirmasi = sc.nextLine().toUpperCase();
+                    } while (!konfirmasi.equals("Y") && !konfirmasi.equals("N"));
+
+                    if (konfirmasi.equals("N")) {
+                        return;
+                    }
 
                     System.out.println("\tMasukkan Data Baru");
-                    String newNik;
-                    String newNamaLengkap;
-                    int newUsia;
-                    String newTempatLahir;
-                    String newTanggalLahir;
-                    char newJenisKelamin;
-                    String newNoTelp;
+                    dataPasien.get(i).updateData(sc, dataPasien.get(i));
+                    
                     String newPenyakit;
-                    
-                    
-                    do {
-                        System.out.print("NIK: ");
-                        newNik = sc.nextLine(); 
-                        if (!(newNik.length() == 16 && newNik.matches("\\d+"))) {
-                            System.out.println("Invalid: NIK harus 16 digit angka.");
-                        }                           
-                    } while (!(newNik.length() == 16 && newNik.matches("\\d+")));
-
-                    do {
-                        System.out.print("Nama: "); 
-                        newNamaLengkap = sc.nextLine();
-                        if (!(newNamaLengkap.matches("[a-zA-Z\\s]+"))) {
-                            System.out.println("Invalid: sesuaikan format.");
-                        }
-                    } while (!(newNamaLengkap.matches("[a-zA-Z\\s]+") ));
-
-                    do {
-                        System.out.print("Usia (tahun): ");
-                        newUsia = sc.nextInt();
-                        sc.nextLine();
-                        if (!(newUsia > 0 && newUsia < 150)) {
-                            System.out.println("Invalid: usia hanya antara 1-149 tahun");
-                        } 
-                    } while (!(newUsia > 0 && newUsia < 150));
-                    
-                    do { 
-                        System.out.print("Tempat Lahir: ");
-                        newTempatLahir = sc.nextLine();
-                        if (!(newTempatLahir != null && !newTempatLahir.trim().isEmpty())) {
-                            System.out.println("Tempat lahir tidak boleh kosong");
-                        }
-                    } while (!(newTempatLahir != null && !newTempatLahir.trim().isEmpty()));
-                    
-                    do { 
-                        System.out.print("Tanggal Lahir (DD-MM-YYYY): ");
-                        newTanggalLahir = sc.nextLine();
-                        if (!(newTanggalLahir.matches("\\d{2}-\\d{2}-\\d{4}"))) {
-                            System.out.println("Invalid: sesuaikan format");
-                        }
-                    } while (!(newTanggalLahir.matches("\\d{2}-\\d{2}-\\d{4}")));
-
-                    do { 
-                        System.out.print("Jenis Kelamin (L/P): ");
-                        newJenisKelamin = sc.nextLine().toUpperCase().charAt(0);
-
-                        if (!(newJenisKelamin == 'L' || newJenisKelamin == 'P')) {
-                            System.out.println("Invalid: sesuaikan format");
-                        }
-                    } while (!(newJenisKelamin == 'L' || newJenisKelamin == 'P'));
-                    
-                    do {
-                        System.out.print("Nomor Telepon: ");
-                        newNoTelp = sc.nextLine();
-                        if (!(newNoTelp.matches("\\d{10,12}"))) {
-                            System.out.println("Invalid: digit minimal 10, max 12");
-                        } 
-                    } while (!(newNoTelp.matches("\\d{10,12}")));
-
                     do {
                         System.out.print("Penyakit: ");
                         newPenyakit = sc.nextLine();
@@ -146,15 +88,7 @@ public class Pasien extends Individu {
                     } while (!(newPenyakit != null && !newPenyakit.trim().isEmpty()));
 
 
-                    Pasien pasienUbah = dataPasien.get(i);
-                    pasienUbah.setNik(newNik);
-                    pasienUbah.setNamaLengkap(newNamaLengkap);
-                    pasienUbah.setUsia(newUsia);
-                    pasienUbah.setTempatLahir(newTempatLahir);
-                    pasienUbah.setTanggalLahir(newTanggalLahir);
-                    pasienUbah.setJenisKelamin(newJenisKelamin);
-                    pasienUbah.setNoTelp(newNoTelp);
-                    pasienUbah.setPenyakit(newPenyakit);
+                    dataPasien.get(i).setPenyakit(newPenyakit);
                     
                     ditemukan = true;
                     System.out.println("Data pasien berhasil diperbarui...");
@@ -185,7 +119,7 @@ public class Pasien extends Individu {
     public String getPeran() {
         return "Pasien";
 
-    }
+    } 
 
     @Override
     public void tampilkanInfo() {
