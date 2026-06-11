@@ -1,6 +1,10 @@
 package model;
 
-import java.util.InputMismatchException;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.Scanner;
 
 public abstract class Individu {
@@ -12,8 +16,6 @@ public abstract class Individu {
     protected String tanggalLahir;
     protected char jenisKelamin;
     protected String noTelp;
-
-    boolean hasilUsia;
 
     public Individu(String nik, String namaLengkap, int usia, String tempatLahir, String tanggalLahir, char jenisKelamin, String noTelp) {
         this.nik = nik;
@@ -75,7 +77,7 @@ public abstract class Individu {
     }
 
     //VALIDASI
-    public String validasiNik(String newNik) {
+    public static String validasiNik(String newNik) {
         if (newNik.length() == 16 && newNik.matches("\\d+")) {
             return newNik;
         }
@@ -87,16 +89,8 @@ public abstract class Individu {
         if (newNamaLengkap.matches("[a-zA-Z\\s]+")) {
             return newNamaLengkap;
         }
-        System.out.println("Invalid: sesuaikan format.");
+        System.out.println("Invalid");
         return null;
-    }
-
-    public boolean validasiUsia(int newUsia) {
-        if (newUsia > 0 && newUsia < 150) {
-            return true;
-        }
-        System.out.println("Invalid: usia hanya antara 1-149 tahun");
-        return false;
     }
 
     public String validasiTempatlahir(String newTempatLahir) {
@@ -109,6 +103,25 @@ public abstract class Individu {
 
     public String validasiTanggalLahir(String newTanggalLahir) {
         if (newTanggalLahir.matches("\\d{2}-\\d{2}-\\d{4}")) {
+            try {
+                DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(ResolverStyle.STRICT);
+                LocalDate lahir = LocalDate.parse(newTanggalLahir, format); //Konversi string newTanggalLahir jadi object LocalDate 
+
+                int tahun = lahir.getYear();
+                int tahunSekarang = LocalDate.now().getYear();// 2026
+
+                if (tahun < 1900 || tahun > tahunSekarang) {
+                    System.out.println("Invalid: tahun antara 1900 - " + tahunSekarang);
+                    return null;
+                }
+
+                this.usia = Period.between(lahir, LocalDate.now()).getYears();
+                System.out.println("Usia anda adalah " + usia);
+
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid: tanggal tidak valid.");
+                return null;
+            }
             return newTanggalLahir;
         }
         System.out.println("Invalid: sesuaikan format");
@@ -132,68 +145,116 @@ public abstract class Individu {
     }
 
     //UPDATE DATA
-    public void updateData(Scanner sc, Object data) {
+    public void updateData(Scanner sc) {
+        int pilihField;
+        do {
+            System.out.println("\nField nama yang ingin diubah?");
+            System.out.println("1. NIK");
+            System.out.println("2. Nama Lengkap");
+            System.out.println("3. Tempat Lahir");
+            System.out.println("4. Tanggal Lahir");
+            System.out.println("5. Jenis Kelamin");
+            System.out.println("6. Nomor Telepon");
+            menuTambahan();
+            System.out.println("0. Selesai");
+            System.out.print("Pilihan: ");
+            pilihField = Integer.parseInt(sc.nextLine());
+
+            switch (pilihField) {
+                case 1 -> {
+                    do {
+                        System.out.print("NIK: ");
+                        nik = sc.nextLine();
+                    } while (validasiNik(nik) == null);
+                    setNik(nik);
+                }
+                case 2 -> {
+                    do {
+                        System.out.print("Nama Lengkap: ");
+                        this.namaLengkap = sc.nextLine();
+                    } while (validasiNamaLengkap(namaLengkap) == null);
+                    setNamaLengkap(namaLengkap);
+                }
+                case 3 -> {
+                    do {
+                        System.out.print("Tempat Lahir: ");
+                        tempatLahir = sc.nextLine();
+                    } while (validasiTempatlahir(tempatLahir) == null);
+                    setTempatLahir(tempatLahir);
+                }
+                case 4 -> {
+                    do {
+                        System.out.print("Tanggal Lahir (DD-MM-YYYY): ");
+                        tanggalLahir = sc.nextLine();
+                    } while (validasiTanggalLahir(tanggalLahir) == null);
+                    setTanggalLahir(tanggalLahir);
+                    setUsia(usia);
+                }
+                case 5 -> {
+                    do {
+                        System.out.println("jenis Kelamin: ");
+                        jenisKelamin = sc.nextLine().toUpperCase().charAt(0);
+                    } while (validasiJenisKelamin(jenisKelamin) == 0);
+                    setJenisKelamin(jenisKelamin);
+                }
+                case 6 -> {
+                    do {
+                        System.out.println("Nomor Telepon");
+                        noTelp = sc.nextLine();
+                    } while (validasiNoTelp(noTelp) == null);
+                    setNoTelp(noTelp);
+                }
+                default ->
+                    throw new AssertionError();
+            }
+
+        } while (pilihField != 0);
+    }
+
+    //TAMBAH DATA
+    public void tambahData(Scanner sc) {
         do {
             System.out.print("NIK: ");
             nik = sc.nextLine();
-            validasiNik(nik);
-        } while (!(nik.length() == 16 && nik.matches("\\d+")));
+        } while (validasiNik(nik) == null);
+        setNik(nik);
 
         do {
             System.out.print("Nama Lengkap: ");
             this.namaLengkap = sc.nextLine();
-            validasiNamaLengkap(namaLengkap);
-        } while (!(namaLengkap.matches("[a-zA-Z\\s]+")));
-
-        do {
-            try {
-                System.out.print("Usia: ");
-                usia = sc.nextInt(); 
-                sc.nextLine(); 
-                hasilUsia = validasiUsia(usia);
-
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid: Input harus berupa angka (tidak boleh huruf/simbol)!");
-                sc.nextLine(); 
-                hasilUsia = false;
-            }
-        } while (hasilUsia == false);
+        } while (validasiNamaLengkap(namaLengkap) == null);
+        setNamaLengkap(namaLengkap);
 
         do {
             System.out.print("Tempat Lahir: ");
             tempatLahir = sc.nextLine();
-            validasiTempatlahir(tempatLahir);
-        } while (!(tempatLahir != null && !tempatLahir.trim().isEmpty()));
+        } while (validasiTempatlahir(tempatLahir) == null);
+        setTempatLahir(tempatLahir);
 
         do {
-            System.out.print("Tanggal Lahir: ");
+            System.out.print("Tanggal Lahir (DD-MM-YYYY): ");
             tanggalLahir = sc.nextLine();
-            validasiTanggalLahir(tanggalLahir);
-        } while (!(tanggalLahir.matches("\\d{2}-\\d{2}-\\d{4}")));
+        } while (validasiTanggalLahir(tanggalLahir) == null);
+        setUsia(usia);
+        setTanggalLahir(tanggalLahir);
 
         do {
             System.out.println("jenis Kelamin: ");
             jenisKelamin = sc.nextLine().toUpperCase().charAt(0);
-            validasiJenisKelamin(jenisKelamin);
-        } while (!(jenisKelamin == 'L' || jenisKelamin == 'P'));
+        } while (validasiJenisKelamin(jenisKelamin) == 0);
+        setJenisKelamin(jenisKelamin);
 
         do {
             System.out.println("Nomor Telepon");
             noTelp = sc.nextLine();
-            validasiNoTelp(noTelp);
-        } while (!(noTelp.matches("\\d{10,12}")));
-
-        setNik(nik);
-        setNamaLengkap(namaLengkap);
-        setUsia(usia);
-        setTempatLahir(tempatLahir);
-        setTanggalLahir(tanggalLahir);
-        setJenisKelamin(jenisKelamin);
+        } while (validasiNoTelp(noTelp) == null);
         setNoTelp(noTelp);
 
     }
 
+    protected abstract void menuTambahan();
+    protected abstract void handlePilihanTambahan(Scanner sc, int pilihField);
     public abstract String getPeran();
-
     public abstract void tampilkanInfo();
+
 }

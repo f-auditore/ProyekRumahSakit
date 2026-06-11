@@ -15,7 +15,7 @@ public class Main {
     static ArrayList<Jadwal> dataJadwal = new ArrayList<>();
     static ArrayList<RekamMedis> dataRekamMedis = new ArrayList<>();
 
-    public static void main(String[] args) throws Exception {
+    public void main(String[] args) throws Exception {
 
         dataDummy();
 
@@ -23,10 +23,18 @@ public class Main {
         
         while (true) { 
             try {
-                System.out.println("=== SISTEM MANAJEMEN DATA PASIEN === \n1. Lihat Daftar Pasien \n2. Cari Pasien Berdasarkan NIK \n3. Update data pasien \n4. Hapus Data Pasien \n5. Tambah Pasien \n6. Lihat Rekam Medis \n7. Pilih Ruangan \n0. Keluar");
+                System.out.println("=== SISTEM MANAJEMEN DATA PASIEN ===");
+                System.out.println("1. Lihat Daftar Pasien");
+                System.out.println("2. Cari Pasien Berdasarkan NIK");
+                System.out.println("3. Update data pasien");
+                System.out.println("4. Hapus Data Pasien");
+                System.out.println("5. Tambah Pasien");
+                System.out.println("6. Lihat Rekam Medis");
+                System.out.println("7. Pilih Ruangan");
+                System.out.println("0. Keluar");
+
                 System.out.print("Pilihan: ");
-                int pilihan = sc.nextInt();
-                sc.nextLine();
+                int pilihan = Integer.parseInt(sc.nextLine());
                 switch (pilihan) {
                     case 1 -> daftarPasien();
                     case 2 -> cariPasienNik(sc);
@@ -41,7 +49,7 @@ public class Main {
                     }
                     default -> throw new AssertionError();
                 }
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
                 System.out.println("Pilihan tidak valid");
             }
         }
@@ -83,7 +91,6 @@ public class Main {
     //2
     public static void cariPasienNik(Scanner sc){
         System.out.println("\n============= Mencari Pasien Berdasarkan NIK =============");
-        System.out.print("\tMasukkan NIK: "); //bisa awalan nik
         Pasien.cariPasienNik(dataPasien, sc);
         System.out.println("-----------------------------");
     }
@@ -91,7 +98,6 @@ public class Main {
     //3
     public static void updatePasien(Scanner sc){
         System.out.println("\n============= Memperbarui Data Pasien =============");
-        System.out.print("Masukkan NIK Pasien yang Ingin Diupdate Datanya: ");
         Pasien.updatePasien(dataPasien, sc);
         System.out.println("-----------------------------");
     }
@@ -99,16 +105,14 @@ public class Main {
     //4
     public static void hapusPasien(Scanner sc){
         System.out.println("\n============= Menghapus Data Pasien =============");
-        System.out.print("Masukkan NIK Pasien yang Ingin Dihapus Datanya: ");
         Pasien.hapusPasien(dataPasien, sc);
         System.out.println("-----------------------------");
         
     }
 
     //5
-    public static void tambahPasien(Scanner sc) {
+    public void tambahPasien(Scanner sc) {
         System.out.println("\n============= Menambah Data Pasien Baru =============");
-        System.out.println("\tMasukkan Data Pasien");
         Pasien.tambahPasien(dataPasien, sc);
         System.out.println("-----------------------------");
     }

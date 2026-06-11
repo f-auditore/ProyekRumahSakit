@@ -1,16 +1,18 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Dokter extends Individu {
+
     protected String noLisensi;
 
-    public Dokter(String nik, String namaLengkap, int usia, String tempatLahir, String tanggalLahir, char jenisKelamin, String noTelp, String noLisensi){
+    public Dokter(String nik, String namaLengkap, int usia, String tempatLahir, String tanggalLahir, char jenisKelamin, String noTelp, String noLisensi) {
         super(nik, namaLengkap, usia, tempatLahir, tanggalLahir, jenisKelamin, noTelp);
         this.noLisensi = noLisensi;
     }
 
-    public void updateDokter(ArrayList<Dokter> dataDokter, String nik, String newNamaLengkap, int newUsia, String newTempatLahir, String newTanggalLahir, char newjenisKelamin, String newNoTelp, String newNoLisensi){
+    public void updateDokter(ArrayList<Dokter> dataDokter, String nik, String newNamaLengkap, int newUsia, String newTempatLahir, String newTanggalLahir, char newjenisKelamin, String newNoTelp, String newNoLisensi) {
         for (int i = 0; i < dataDokter.size(); i++) {
             if (dataDokter.get(i).getNik().equals(nik)) {
                 Dokter dokterUbah = dataDokter.get(i);
@@ -21,24 +23,44 @@ public class Dokter extends Individu {
                 dokterUbah.setJenisKelamin(newjenisKelamin);
                 dokterUbah.setNoTelp(newNoTelp);
                 dokterUbah.setNoLisensi(newNoLisensi);
-                break; 
+                break;
             }
         }
-}
+    }
 
-    public void setNoLisensi(String newNoLisensi){
+    public void setNoLisensi(String newNoLisensi) {
         if (newNoLisensi.matches("\\d{10,13}")) {
             this.noLisensi = newNoLisensi;
         }
     }
 
     @Override
-    public String getPeran(){
+    protected void menuTambahan() {
+        System.out.println("7. No Lisensi");
+    }
+
+    @Override
+    protected void handlePilihanTambahan(Scanner sc, int pilihField) {
+        if (pilihField == 7) {
+            String newNoLisensi;
+            do {
+                System.out.print("Nomor Lisensi (STR): ");
+                newNoLisensi = sc.nextLine(); 
+                if (!newNoLisensi.matches("\\d{13}")) { 
+                    System.out.println("Invalid: Nomor STR harus 13 digit angak");
+                }
+            } while (!newNoLisensi.matches("\\d{13}"));
+            setNoLisensi(newNoLisensi);
+        }
+    }
+
+    @Override
+    public String getPeran() {
         return "Dokter";
     }
 
     @Override
-    public void tampilkanInfo(){
-        System.out.println("NIK\t: " + nik + "\nNama\t: " + namaLengkap + "\nUsia\t: " + usia + "\nTempat Lahir\t: " + tempatLahir + "\nTanggal Lahir\t" + tanggalLahir +  "\nJenis Kelamin\t: " + jenisKelamin);
+    public void tampilkanInfo() {
+        System.out.println("NIK\t: " + nik + "\nNama\t: " + namaLengkap + "\nUsia\t: " + usia + "\nTempat Lahir\t: " + tempatLahir + "\nTanggal Lahir\t" + tanggalLahir + "\nJenis Kelamin\t: " + jenisKelamin);
     }
-} 
+}
