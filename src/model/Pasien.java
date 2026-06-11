@@ -24,15 +24,23 @@ public class Pasien extends Individu {
     public static void tambahPasien(ArrayList<Pasien> dataPasien, Scanner sc) {
         System.out.println("\tMasukkan Data Pasien");
 
+        Pasien pasienBaru = new Pasien("", "", 0, "", "", ' ', "", "");
+        pasienBaru.tambahData(sc);
+
+        String penyakit;
         do {
             System.out.print("Penyakit: ");
-            String penyakit = sc.nextLine();
-        } while (true);
+            penyakit = sc.nextLine();
+        } while (penyakit.trim().isEmpty());
+
+        pasienBaru.setPenyakit(penyakit);
+        dataPasien.add(pasienBaru); //simpan ke arraylist
+        System.out.println("Data berhasil ditambahkan.");
 
     }
 
     public static void cariPasienNik(ArrayList<Pasien> dataPasien, Scanner sc) {
-        System.out.print("\tMasukkan NIK: "); 
+        System.out.print("\tMasukkan NIK: ");
         String pilihNik = sc.nextLine();
         System.out.println("");
         boolean ditemukan = false;
@@ -45,27 +53,6 @@ public class Pasien extends Individu {
         }
         if (!ditemukan) {
             System.out.println("Pencarian tidak ditemukan.");
-        }
-    }
-
-    @Override
-    protected void menuTambahan() {
-        System.out.println("7. Penyakit");
-    }
-
-    @Override
-    protected void handlePilihanTambahan(Scanner sc, int pilihField) {
-        if (pilihField == 7) {
-            String newPenyakit;
-            do {
-                System.out.print("Penyakit: ");
-                newPenyakit = sc.nextLine(); //sc.nextLine() tdk mengembalikan nilai null
-                if (newPenyakit.trim().isEmpty()) {
-                    System.out.println("Penyakit tidak boleh kosong");
-                }
-            } while (newPenyakit.trim().isEmpty());
-
-            setPenyakit(newPenyakit);
         }
     }
 
@@ -86,7 +73,6 @@ public class Pasien extends Individu {
                     return;
                 }
 
-                System.out.println("\tMasukkan Data Baru");
                 dataPasien.get(i).updateData(sc);
 
                 ditemukan = true;
@@ -96,6 +82,30 @@ public class Pasien extends Individu {
         }
         if (!ditemukan) {
             System.out.println("Pasien tidak ditemukan.");
+        }
+    }
+
+    @Override
+    protected void menuTambahan() {
+        System.out.println("7. Penyakit");
+    }
+
+    @Override
+    protected void handlePilihanTambahan(Scanner sc, int pilihField) {
+        switch (pilihField) {
+            case 7 -> {
+                String newPenyakit;
+                do {
+                    System.out.print("Penyakit: ");
+                    newPenyakit = sc.nextLine(); //sc.nextLine() tdk mengembalikan nilai null
+                    if (newPenyakit.trim().isEmpty()) {
+                        System.out.println("Penyakit tidak boleh kosong");
+                    }
+                } while (newPenyakit.trim().isEmpty());
+
+                setPenyakit(newPenyakit);
+            }
+            default -> System.out.println("Invalid: ulangi");   
         }
     }
 
