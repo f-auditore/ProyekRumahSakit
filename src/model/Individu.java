@@ -81,7 +81,7 @@ public abstract class Individu {
         if (newNik.length() == 16 && newNik.matches("\\d+")) {
             return newNik;
         }
-        System.out.println("Data NIK tidak valid");
+        System.out.println("Invalid: input 16 digit");
         return null;
     }
 
@@ -89,7 +89,7 @@ public abstract class Individu {
         if (newNamaLengkap.matches("[a-zA-Z\\s]+")) {
             return newNamaLengkap;
         }
-        System.out.println("Invalid");
+        System.out.println("Invalid: input huruf");
         return null;
     }
 
@@ -97,7 +97,7 @@ public abstract class Individu {
         if (newTempatLahir != null && !newTempatLahir.trim().isEmpty()) {
             return newTempatLahir;
         }
-        System.out.println("Tempat lahir tidak boleh kosong");
+        System.out.println("Tidak boleh kosong");
         return null;
     }
 
@@ -108,23 +108,22 @@ public abstract class Individu {
                 LocalDate lahir = LocalDate.parse(newTanggalLahir, format); //Konversi string newTanggalLahir jadi object LocalDate 
 
                 int tahun = lahir.getYear();
-                int tahunSekarang = LocalDate.now().getYear();// 2026
 
-                if (tahun < 1900 || tahun > tahunSekarang) {
-                    System.out.println("Invalid: tahun antara 1900 - " + tahunSekarang);
+                if (tahun < 1900 || lahir.isAfter(LocalDate.now())) {
+                    System.out.println("Invalid: sesuaikan penanggalan"); //hrs sesuai range
                     return null;
                 }
 
                 this.usia = Period.between(lahir, LocalDate.now()).getYears();
-                System.out.println("Usia anda adalah " + usia);
+                System.out.println("Usia:  " + usia);
 
             } catch (DateTimeParseException e) {
-                System.out.println("Invalid: tanggal tidak valid.");
+                System.out.println("Invalid: sesuaikan penanggalan"); //tanggal hrs exist di kalender
                 return null;
             }
             return newTanggalLahir;
         }
-        System.out.println("Invalid: sesuaikan format");
+        System.out.println("Invalid: sesuaikan format"); // hrs \\d{2}-\\d{2}-\\d{4}
         return null;
     }
 
@@ -132,7 +131,7 @@ public abstract class Individu {
         if (newJenisKelamin == 'L' || newJenisKelamin == 'P') {
             return newJenisKelamin;
         }
-        System.out.println("Invalid: sesuaikan format");
+        System.out.println("Invalid: input L/P");
         return 0;
     }
 
@@ -140,7 +139,7 @@ public abstract class Individu {
         if (newNoTelp.matches("\\d{10,12}")) {
             return newNoTelp;
         }
-        System.out.println("Invalid: digit minimal 10, max 12");
+        System.out.println("Invalid: input 10-12 digit");
         return null;
     }
 
@@ -156,7 +155,7 @@ public abstract class Individu {
             System.out.println("5. Jenis Kelamin");
             System.out.println("6. Nomor Telepon");
             menuTambahan();
-            System.out.println("0. Selesai");
+            System.out.println("0. Back");
             System.out.print("Pilihan: ");
             pilihField = Integer.parseInt(sc.nextLine());
 
@@ -192,23 +191,30 @@ public abstract class Individu {
                 }
                 case 5 -> {
                     do {
-                        System.out.println("jenis Kelamin: ");
+                        System.out.print("jenis Kelamin: ");
                         jenisKelamin = sc.nextLine().toUpperCase().charAt(0);
                     } while (validasiJenisKelamin(jenisKelamin) == 0);
                     setJenisKelamin(jenisKelamin);
                 }
                 case 6 -> {
                     do {
-                        System.out.println("Nomor Telepon");
+                        System.out.print("Nomor Telepon");
                         noTelp = sc.nextLine();
                     } while (validasiNoTelp(noTelp) == null);
                     setNoTelp(noTelp);
                 }
-                default ->
-                    throw new AssertionError();
+                case 0 -> {
+                }
+                default -> handlePilihanTambahan(sc, pilihField);
             }
 
         } while (pilihField != 0);
+
+        /* 
+        User input 0
+        1. Masuk case 0, tidak melakukan apa-apa
+        2. Balik ke kondisi while (pilihField != 0) -> false -> loop berhenti 
+        */
     }
 
     //TAMBAH DATA
@@ -239,13 +245,13 @@ public abstract class Individu {
         setTanggalLahir(tanggalLahir);
 
         do {
-            System.out.println("jenis Kelamin: ");
+            System.out.print("jenis Kelamin: ");
             jenisKelamin = sc.nextLine().toUpperCase().charAt(0);
         } while (validasiJenisKelamin(jenisKelamin) == 0);
         setJenisKelamin(jenisKelamin);
 
         do {
-            System.out.println("Nomor Telepon");
+            System.out.print("Nomor Telepon");
             noTelp = sc.nextLine();
         } while (validasiNoTelp(noTelp) == null);
         setNoTelp(noTelp);
@@ -253,8 +259,11 @@ public abstract class Individu {
     }
 
     protected abstract void menuTambahan();
+
     protected abstract void handlePilihanTambahan(Scanner sc, int pilihField);
+
     public abstract String getPeran();
+
     public abstract void tampilkanInfo();
 
 }
