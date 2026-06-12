@@ -136,7 +136,7 @@ public class Pasien extends Individu {
     public void tampilkanInfo() {
         System.out.println("NIK\t\t\t: " + nik + "\nNama\t\t\t: " + namaLengkap + "\nUsia\t\t\t: " + usia
                 + "\nTempat Lahir\t\t: " + tempatLahir + "\nTanggal Lahir\t\t: " + tanggalLahir + "\nJenis Kelamin\t\t: "
-                + jenisKelamin + "\nPenyakit\t\t: " + penyakit);
+                + jenisKelamin + "\nPenyakit\t\t: " + penyakit + "\nNomor Telepon\t\t:" + noTelp);
     }
 
 }

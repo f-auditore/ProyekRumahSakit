@@ -198,7 +198,7 @@ public abstract class Individu {
                 }
                 case 6 -> {
                     do {
-                        System.out.print("Nomor Telepon");
+                        System.out.print("Nomor Telepon: ");
                         noTelp = sc.nextLine();
                     } while (validasiNoTelp(noTelp) == null);
                     setNoTelp(noTelp);
@@ -251,7 +251,7 @@ public abstract class Individu {
         setJenisKelamin(jenisKelamin);
 
         do {
-            System.out.print("Nomor Telepon");
+            System.out.print("Nomor Telepon: ");
             noTelp = sc.nextLine();
         } while (validasiNoTelp(noTelp) == null);
         setNoTelp(noTelp);
