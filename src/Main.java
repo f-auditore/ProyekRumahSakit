@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import model.Dokter;
@@ -42,7 +41,7 @@ public class Main {
                     case 4 -> hapusPasien(sc);
                     case 5 -> tambahPasien(sc);
                     case 6 -> lihatRekamMedis();
-                    case 7 -> pilihRuangan();
+                    case 7 -> pilihRuangan(sc);
                     case 0 -> {
                         System.out.println("Terima Kasih!");
                         System.exit(0);
@@ -134,17 +133,16 @@ public class Main {
     }
 
     //6
-    public static void pilihRuangan() {
+    public static void pilihRuangan(Scanner sc) {
         System.out.println("Pilih Ruangan: \n1. ICU");
-        try (Scanner sc = new Scanner(System.in)) {
             int pilihanRuangan = sc.nextInt();
+            sc.nextLine();
             switch (pilihanRuangan) {
                 case 1 ->
                     lihatRuanganIcu();
                 default ->
                     System.out.println("Pilihan ruangan tidak valid.");
             }
-        }
     }
 
     // 4.1
